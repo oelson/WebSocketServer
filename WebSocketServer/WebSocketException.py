@@ -53,3 +53,9 @@ class WebSocketClose(WebSocketException):
 	Raised if the client send a disconnexion frame or if an error occured
 	"""
 	pass
+
+class WebSocketBadClose(WebSocketException):
+	"""
+	Raised if the client close the connexion without respecting the protocol
+	"""
+	pass

@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 #-*- coding: utf-8 -*-
 #
 #	Copyright 2010 Houillon Nelson <houillon.nelson@gmail.com>
@@ -54,10 +53,10 @@ class server(threading.Thread):
 	addr = None
 	host = None
 	port = -1
-	running = False
+	running = True
 	conn = None
 	buffSize = 4096
-	connTimeout = 1
+	connexionTimeout = 1
 	threadPool = []
 	
 	init   = None
@@ -73,7 +72,6 @@ class server(threading.Thread):
 		self.handle = handle
 		self.init = init
 		self.exit = exit
-		self.running = True
 		threading.Thread.__init__(self)
 	
 	def run(self):
@@ -87,13 +85,13 @@ class server(threading.Thread):
 			self.conn.listen(1)
 		except socket.error as e:
 			print("err: cannot bind the socket to '{0}':{1} {2}".format(
-				self.addr, self.port, e),
+					self.addr, self.port, e),
 				file=sys.stderr)
 			self.stop()
 			return 1
 		
 		# Allows to check regulary if the server.stop() method fired
-		self.conn.settimeout(self.connTimeout)
+		self.conn.settimeout(self.connexionTimeout)
 		
 		if self.debug:
 			print("info: server started")
@@ -125,6 +123,7 @@ class server(threading.Thread):
 			for thread in self.threadPool:
 				if thread.is_alive() and thread.running:
 					thread.stop()
+					thread.join()
 			self.conn.close()
 
 class _WebSocketHandler(threading.Thread):
@@ -140,7 +139,7 @@ class _WebSocketHandler(threading.Thread):
 	master = None
 	sock = None
 	addr = None
-	running = True
+	running = False
 	dataStack = []
 	dataBuffer = b""
 	
@@ -155,6 +154,8 @@ class _WebSocketHandler(threading.Thread):
 		Read the client's handShakeMsg and respond
 		Read and write on the socket until the self.close() method fires
 		"""
+		self.running = True
+		
 		# Trigger the master's init function
 		self.master.init(self)
 		
@@ -181,7 +182,7 @@ class _WebSocketHandler(threading.Thread):
 						file=sys.stderr)
 				self.stop()
 				break
-			except WebSocketClose:
+			except (WebSocketClose, WebSocketBadClose):
 				if self.master.debug:
 					print("info: {0} disconnected".format(self.addr))
 				self.stop()
@@ -192,7 +193,7 @@ class _WebSocketHandler(threading.Thread):
 		self.master.exit(self)
 		
 		if self.master.debug:
-			print("info: {0} terminated".format(self.addr))
+			print("info: {0} thread terminated".format(self.addr))
 	
 	def _handshake(self):
 		"""
@@ -278,19 +279,20 @@ class _WebSocketHandler(threading.Thread):
 		"""
 		if not self.running:
 			return
+		
 		# Pop from the stack rather than receive data
 		if len(self.dataStack) > 0:
 			return self.dataStack.pop(0)
-		try:
-			data = self.sock.recv(self.master.buffSize)
-			if len(data) == 0:
-				raise WebSocketClose
-		except socket.error as e:
-			if self.master.debug:
-				print("err: {0} {1} while receiving".format(
-					self.addr, e
-				), file=sys.stderr)
-			raise WebSocketClose
+#		try:
+		data = self.sock.recv(self.master.buffSize)
+		if len(data) == 0:
+			raise WebSocketBadClose
+#		except socket.error as e:
+#			if self.master.debug:
+#				print("err: {0} {1} while receiving".format(
+#					self.addr, e
+#				), file=sys.stderr)
+#			raise WebSocketClose
 		
 		size = len(data)
 		returnData = None
@@ -300,7 +302,7 @@ class _WebSocketHandler(threading.Thread):
 		
 		for i, byte in enumerate(data):
 			if byte == 0x00:
-				# \xff \x00 is a demand to close the socket
+				# \xff\x00 is a demand to close the socket
 				if closeFrame:
 					raise WebSocketClose
 				elif not dataFrame:
@@ -318,29 +320,26 @@ class _WebSocketHandler(threading.Thread):
 					i = -1
 				elif not closeFrame:
 					closeFrame = True
-		# End For
 		# TODO if i != -1 there is some data in the buffer
 		# ie: b"\x00a string witho"
 		# \xFF may come on the next recv()
-		# Append necessary when the string is greater than master.buffSize
+		# Appens when the string is greater than master.buffSize
 		return returnData
 	
 	def send(self, s):
 		"""
 		Send a utf-8 string
 		"""
-		if not self.running:
-			return
 		# *data* frames start with \x00 and ends with \xFF
 		data = b"\x00" + s.encode() + b"\xFF"
-		try:
-			self.sock.sendall(data)
-		except socket.error as e:
-			if self.master.debug:
-				print("err: {0} {1} while sending".format(
-					self.addr, e
-				), file=sys.stderr)
-			raise WebSocketClose
+#		try:
+		self.sock.sendall(data)
+#		except socket.error as e:
+#			if self.master.debug:
+#				print("err: {0} {1} while sending".format(
+#					self.addr, e
+#				), file=sys.stderr)
+#			raise WebSocketBadClose
 	
 	def stop(self):
 		"""
@@ -350,6 +349,11 @@ class _WebSocketHandler(threading.Thread):
 		"""
 		if self.running:
 			self.running = False
-			self.sock.send(b"\x01\x05")
+#			try:
+#				self.sock.send(b"\xff\x00")
+#			except socket.error:
+#				pass
 			self.sock.shutdown(socket.SHUT_RDWR)
 			self.sock.close()
+			if self.master.debug:
+				print("info: {0} stopping".format(self.addr))
