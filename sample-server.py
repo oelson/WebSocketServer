@@ -40,14 +40,14 @@ def handle(self, data):
         if self.addr != thread.addr:
             thread.send(data)
     ## Or just re-send the string to the thread's *own* client
-    ##self.send(data)
+    #self.send(data)
     ## You can terminate a connection by calling the self.close() method
 
 # Create the server and give it the method to trigger when receiving data from
 # a client
 server = WebSocketServer.server(
     addr="",
-    host="emptyvoid.net",
+    host="localhost",
     port=8080,
     handle=handle
 )

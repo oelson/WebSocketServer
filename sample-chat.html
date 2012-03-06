@@ -8,7 +8,6 @@
 		{
 			font-size: 16px;
 		}
-		
 		p
 		{
 			font-size: 1em;
@@ -30,52 +29,53 @@
 		<textarea value="" id="msg" rows="3" cols="60"></textarea>
 		<div id="output"></div>
 		<script>
-		var msg = document.getElementById("msg")
-		var output = document.getElementById("output")
-		var nick = document.getElementById("nick")
-		var host = "emptyvoid.net:8080"
-		var s = new WebSocket("ws://" + host + "/")
+		var host = "localhost:8080";
+		var s = new WebSocket("ws://" + host + "/");
+		
+		var msg    = document.getElementById("msg");
+		var output = document.getElementById("output");
+		var nick   = document.getElementById("nick");
 	
 		s.onopen = function(e) {
-			console.log("connected to " + host)
-		}
+			console.log("connected to " + host);
+		};
 	
 		s.onclose = function(e) {
-			console.log("closed connexion with " + host)
-		}
+			console.log("closed connexion with " + host);
+		};
 
 		s.onmessage = function(e) {
-			console.log("received: \"" + e.data + "\"")
-			out(e.data)
-		}
+			console.log("received: \"" + e.data + "\"");
+			out(e.data);
+		};
 
 		msg.addEventListener("keypress", function(e) {
 			if (e.keyCode == 13) {
-				e.preventDefault()
+				e.preventDefault();
 				if (msg.value.replace(/\s/g, "") == "")
-					return
-				var data
+					return;
+				var data;
 				if (nick.value.replace(/\s/g, "") == "")
-					data = "Anonymous: " + msg.value
+					data = "Anonymous: " + msg.value;
 				else
-					data = nick.value + ": " + msg.value
-				out(data)
-				s.send(data)
-				console.log("sent: \"" + data + "\"")
-				msg.value = ""
+					data = nick.value + ": " + msg.value;
+				out(data);
+				s.send(data);
+				console.log("sent: \"" + data + "\"");
+				msg.value = "";
 			}
-		}, true)
+		}, true);
 		
 		function out(text) {
-			var el = document.createElement("P")
-			el.appendChild(document.createTextNode(text))
+			var el = document.createElement("P");
+			el.appendChild(document.createTextNode(text));
 			if (output.firstChild)
-				output.insertBefore(el, output.firstChild)
+				output.insertBefore(el, output.firstChild);
 			else
-				output.appendChild(el)
-			document.body.scrollTop = 0
+				output.appendChild(el);
+			document.body.scrollTop = 0;
 		}
-		msg.focus()
+		msg.focus();
 		</script>
 	</body>
 </html>

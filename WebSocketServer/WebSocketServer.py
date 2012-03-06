@@ -35,11 +35,11 @@ def _int(s):
     return int(buff)
 
 _handShakeStr = \
-"HTTP/1.1 101 WebSocket Protocol Handshake\r\n" +\
-"Upgrade: WebSocket\r\n"  +\
-"Connection: Upgrade\r\n" +\
-"Sec-WebSocket-Origin: {0}\r\n" +\
-"Sec-WebSocket-Location: ws://{1}{2}\r\n\r\n"
+    "HTTP/1.1 101 WebSocket Protocol Handshake\r\n" +\
+    "Upgrade: WebSocket\r\n"  +\
+    "Connection: Upgrade\r\n" +\
+    "Sec-WebSocket-Origin: {0}\r\n" +\
+    "Sec-WebSocket-Location: ws://{1}{2}\r\n\r\n"
 
 def __void__(self):
     pass
