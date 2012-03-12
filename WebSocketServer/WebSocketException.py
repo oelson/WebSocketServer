@@ -1,60 +1,64 @@
 #-*- coding: utf-8 -*-
+# Copyright 2012 Nelson HOUILLON <houillon.nelson@gmail.com>
 #
-#    Copyright 2010 Houillon Nelson <houillon.nelson@gmail.com>
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
 #
-#    This program is free software; you can redistribute it and/or modify
-#    it under the terms of the GNU General Public License as published by
-#    the Free Software Foundation; either version 2 of the License, or
-#    (at your option) any later version.
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
 #
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-#    GNU General Public License for more details.
-#
-#    You should have received a copy of the GNU General Public License
-#    along with this program; if not, write to the Free Software
-#    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-#    MA 02110-1301, USA.
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+# MA 02110-1301, USA.
+
+
+from .WebSocketCode import CloseFrameStatusCode
 
 class WebSocketException(Exception):
-    value = "WebSocketException"
-    def __init__(self):
-        pass
+    detail = "unknown webscket error"
+    def __init__(self, detail=None):
+        if isinstance(detail, str):
+            self.detail += " ("+detail+")"
     def __str__(self):
-        return self.value
+        return self.detail
 
-class WebSocketBadHost(WebSocketException):
-    """
-    Raised if the host header given by the client don't match with the host name
-    associated to the server
-    """
-    pass
+class BadState(WebSocketException):
+    detail = "bad state"
 
-class WebSocketBadHandShake(WebSocketException):
-    """
-    Raised when the client's handshake is invalid (either malformed or if it's
-    using an old specification of the protocol)
-    """
-    pass
+class BadHandShake(WebSocketException):
+    detail = "bad handshake"
 
-class WebSocketBadFrame(WebSocketException):
-    """
-    Raised if the client send an invalid WebSocket frame
-    The two supported frame types are:
-        o data frames
-        o disconnexion frame
-    """
-    pass
+class CloseFrameReceived(WebSocketException):
+    detail = "connection close frame received (status={}, reason=\"{}\")"
+    status = CloseFrameStatusCode.NO_STATUS_RECVD
+    reason = ""
     
-class WebSocketClose(WebSocketException):
-    """
-    Raised if the client send a disconnexion frame or if an error occured
-    """
-    pass
+    def __init__(self, status=CloseFrameStatusCode.NO_STATUS_RECVD, reason=""):
+        self.status = status
+        self.reason = reason
+    
+    def __str__(self):
+        return self.detail.format(self.status, self.reason)
 
-class WebSocketBadClose(WebSocketException):
-    """
-    Raised if the client close the connexion without respecting the protocol
-    """
-    pass
+class ClientSleeping(WebSocketException):
+    detail = "client is sleeping"
+
+class DataMaskingError(WebSocketException):
+    detail = "data masking error"
+
+class MessageTooBig(WebSocketException):
+    detail = "message too big"
+
+class BadFrame(WebSocketException):
+    detail = "bad frame"
+
+class IncompleteFrame(BadFrame):
+    detail = "incomplete frame"
+
+class PayloadDataNotUnicode(BadFrame):
+    detail = "payload data cannot be decoded as utf-8"

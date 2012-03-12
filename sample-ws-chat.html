@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>WebSocket Example</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<style>
+		body
+		{
+			font-size: 16px;
+		}
+		p
+		{
+			font-size: 1em;
+			white-space: pre-line;
+			backgroud-color: red;
+			margin: 4px 8px 24px 4px;
+			font-family: ubuntu, arial, sans;
+		}
+		textarea
+		{
+			font-size: 1em;
+			font-family: ubuntu, arial, sans;
+		}
+		</style>
+	</head>
+	<body>
+		<input type="text" name="nick" id="nick" value="Anonymous">
+		<br>
+		<textarea value="" id="msg" rows="3" cols="50"></textarea>
+		<div id="output"></div>
+		<script>
+		var host = "localhost:8080";
+		var ress = "/chat";
+		
+		var s;
+		
+		var msgStack = [];
+		
+		var msg    = document.getElementById("msg");
+		var output = document.getElementById("output");
+		var nick   = document.getElementById("nick");
+		
+		function conn()
+		{
+			if (s && s.readyState == WebSocket.OPEN)
+				s.close();
+			
+			s = new WebSocket("ws://" + host + ress);	
+			
+			s.onopen = function(e) {
+				console.log("connected to " + host);
+				for (var i=0; i < msgStack.length; i++) {
+					text = msgStack[i];
+					s.send(text);
+					console.log("sent from stack: \"" + text + "\"");
+					out(text);
+				}
+				msgStack = [];
+			};
+		
+			s.onclose = function(e) {
+				console.log("connection closed (host="+host+", code="+e.code
+					+", reason=\""+e.reason+"\")");
+			};
+
+			s.onmessage = function(e) {
+				console.log("received: \"" + e.data + "\"");
+				out(e.data);
+			};
+			
+			s.onerror = function(e) {
+				console.error("error: \"" + e.data + "\"");
+				console.log(e);
+			};
+		}
+		
+		msg.addEventListener("keypress", function(e) {
+			// Enter
+			if (e.keyCode == 13) {
+				e.preventDefault();
+				if (msg.value.replace(/\s/g, "") == "")
+					return;
+				var text;
+				if (nick.value.replace(/\s/g, "") == "")
+					text = "Anonymous: " + msg.value;
+				else
+					text = nick.value + ": " + msg.value;
+				try {
+					if (!s.send(text))
+						throw("not connected");
+				}
+				catch (e) {
+					console.log(e);
+					msgStack.push(text);
+					console.log("stack: \"" + text + "\"");
+					msg.value = "";
+					conn();
+					return;
+				}
+				out(text);
+				console.log("sent: \"" + text + "\"");
+				msg.value = "";
+			}
+		}, true);
+		
+		// Write to DOM
+		function out(text) {
+			var el = document.createElement("P");
+			el.appendChild(document.createTextNode(text));
+			if (output.firstChild)
+				output.insertBefore(el, output.firstChild);
+			else
+				output.appendChild(el);
+			document.body.scrollTop = 0;
+		}
+		
+		// init
+		conn();
+		msg.focus();
+		</script>
+	</body>
+</html>
