@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>WebSocket Example - game</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<style>
+		html, body { margin: 0; width: 100%; height: 100%; }
+		canvas#game
+		{
+			border-width: 0;
+			position: absolute;
+			top:  0;
+			left: 0;
+		}
+		img#cursor { display: none; }
+		</style>
+	</head>
+	<body>
+		<canvas id="game" width="1" height="1"></canvas>
+		<img id="cursor" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAWCAYAAADwza0nAAADNUlEQVQ4T5WTbUhTYRTHz22tua2MMIj6ZBElRYtGi5h5nZbDbdGHoS1sLtoIJbS2EjckClpmfsqBWdlMyA0Dg6ZJrLKEksHWh2RTUSfbdNO+RNO9uLn50rkDR/begT9czv3/Hs5zznmIeDye0Ol0N5qamhrgP4KYmwsn2GwWvaqq+sqDBy13/5Ulxscn4g0NtxkGgwFqaq5Wt7a2Nv8LTPj90/GDBw8weDwe9PS8WK6srLjY3t7+8G8wBcb4/KMZfr8fpFIpdHY+XVQqz1eYzebHf4IRDMRyc3MzpqYmUz6ZTAZPnpiScnmZqqurq+N3MDE1FZgnyWNMn8+X9sjl5dDW1rYgk50+b7FYOn8FU6WmQK/Xu+a/UqmClpb7sZISqaK3t/fZjzARCExHSTKP5fF4fjq4oqISsNvRkydPne3re9X9vYGYnp6J5ueTrImJiV9ep7r6EjQ2NoYlEvGZ/v7+l6smBD9HBAKS7Xa7f9tEjeYK6PX6WaGwSGaz2V5TxhRYWChgj42NrQFpNBosLS2lc7W1taDT1X0tLhaWOhyOdxQYPn68YOPo6GjKlJmZCaFQCMrKzoJWq4NEIrGChxDJZBIOH+bCLIZEIinF5syEhcITG0dGRoDP58O1a9dBLC6GnJwc+PRpEOrrbxlcLtcknc7YEItFgclk0gKBz0MUGCooyN8UCoUB61/atWvncl5eHn1gYAAslm7wej1NGo3mOlUMdTXUIipIeL2Tc+Xl8kx8VmC3O8wsVsaGlZWVUqVSCSKRGHDpAxzOgdxgMOhHgI5apmDC4/HN0mjrNg8PD70Vi8WqoqIikdHYdn///n0QiUTA6XRSsLq5udmwZo7hcGTe7R73kCR5Bo1f6HR69tDQcIdef3O3yWQCtVoNCsU5B5d7KB/BeHqO799/GFQoyi/jrn7EZAZqCw5cy+FwLohEIsjK2goulxOwdKnVan2eBrOzswUIDWJiFsVAbeNyuSS+zXatVrteIBCASqWCO3ca7tXV1VWlQfxgoRZQq9PeTsF9fW+NPN6RPRbL8zdG4yOr3W634UypvaS8qfb+GJsxsQMr2YuzDqKo7afMlOZWzd8AqLFzEtCi1fIAAAAASUVORK5CYII=" width="14" height="22" />
+		<script>
+		var host = "localhost:8080";
+		var ress = "/chat";
+		var s;
+		var sendInterval;
+		var updatePeriod = 20;
+		var cnv = document.getElementById("game");
+		var ctx = cnv.getContext("2d");
+		var curSrc = document.getElementById("cursor");
+		/*
+		 * Cursor grabbing
+		 */
+		var myCur = {ip: null, socket: null, x: 0, y: 0},
+		  lastCur = {x: null, y: null};
+		var cursorPos = [];
+		cnv.addEventListener("mousemove", function(e) {
+			var x = e.pageX, y = e.pageY;
+			var node = cnv;
+			while (node.parentNode) {
+				x -= node.offsetLeft;
+				y -= node.offsetTop;
+				node = node.parentNode;
+			}
+			myCur.x = x;
+			myCur.y = y;
+		}, false);
+		/*
+		 * Canvas drawing
+		 */
+		function drawGame() {
+			ctx.save();
+			ctx.clearRect(0,0,cnv.width,cnv.height);
+			for (var i=0, cur; i < cursorPos.length; i++) {
+				cur = cursorPos[i];
+				ctx.drawImage(curSrc, cur.x, cur.y);
+				ctx.fillText(
+					(cur.ip ? (cur.ip+':'+cur.socket) : "me"),
+					cur.x,
+					cur.y + curSrc.height + 10
+				);
+			}
+			ctx.restore();
+		}
+		cnv.addEventListener("mousemove", drawGame, false);
+		/*
+		 * Canvas size
+		 */
+		function resize(e) {
+			cnv.width  = document.body.offsetWidth;
+			cnv.height = document.body.offsetHeight;
+		}
+		window.addEventListener("resize", resize, false);
+		resize();
+		/*
+		 * WebSocket (re)connection & data transfert
+		 */
+		function sendCursorPos(cur) {
+			if (myCur.x != lastCur.x || myCur.y != lastCur.y) {
+				if (s && s.readyState == WebSocket.OPEN) {
+					s.send(myCur.x+','+myCur.y);
+				}
+				lastCur.x = myCur.x;
+				lastCur.y = myCur.y;
+			}
+		}
+		(function conn() {
+			if (s && s.readyState == WebSocket.OPEN)
+				s.close();
+			s = new WebSocket("ws://"+host+ress);	
+			s.onopen = function(e) {
+				if (sendInterval)
+					clearInterval(sendInterval);
+				sendInterval = setInterval(sendCursorPos, updatePeriod);
+			};
+			s.onmessage = function(e) {
+				var updateMsg = e.data.match(/^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}),(\d+):(\d+),(\d+)$/);
+				var deleteMsg = e.data.match(/^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}),(\d+):d$/);
+				if (updateMsg && updateMsg.length == 5) {
+					var ip=updateMsg[1], socket=parseInt(updateMsg[2]),
+					    x=parseInt(updateMsg[3]), y=parseInt(updateMsg[4]);
+					var found=false
+					for (var i=0, cur; i < cursorPos.length; i++) {
+						cur = cursorPos[i];
+						// update the pos of an existing cursor
+						if (cur.ip == ip && cur.socket == socket) {
+							cur.x = x, cur.y = y;
+							found = true;
+						}
+					}
+					// add a new cursor
+					if (!found) {
+						cursorPos.push({
+							ip: ip,
+							socket: socket,
+						    x: x,
+						    y: y
+						});
+					}
+					drawGame();
+				}
+				else if (deleteMsg && deleteMsg.length == 3) {
+					var ip=deleteMsg[1], socket=parseInt(deleteMsg[2]);
+					for (var i=0, cur; i < cursorPos.length; i++) {
+						cur = cursorPos[i];
+						// delete an existing cursor
+						if (cur.ip == ip && cur.socket == socket) {
+							delete(cursorPos[i]);
+							for (var j=i; j < cursorPos.length-1; j++) {
+								cursorPos[j] = cursorPos[j+1];
+							}
+							cursorPos.pop();
+							drawGame();
+							break;
+						}
+					}
+				}
+			};
+			s.onerror = function(e) {
+				if (sendInterval) {
+					clearInterval(sendInterval);
+					sendInterval = null;
+				}
+				s.close();
+				s = null;
+			};
+			s.onclose = function(e) {
+				if (sendInterval) {
+					clearInterval(sendInterval);
+					sendInterval = null;
+				}
+				s = null;
+			};
+		})();
+		/*
+		 * Delete message before exit
+		 */
+		function sendCursorDelete() {
+			if (s && s.readyState == WebSocket.OPEN)
+				s.send('d');
+		}
+		window.addEventListener("beforeunload", sendCursorDelete, false);
+		</script>
+	</body>
+</html>

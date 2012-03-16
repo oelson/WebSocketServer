@@ -20,8 +20,8 @@
 from .WebSocketCode import CloseFrameStatusCode
 
 class WebSocketException(Exception):
-    detail = "unknown webscket error"
-    def __init__(self, detail=None):
+    detail = "unknown websocket error"
+    def __init__(self, detail=""):
         if isinstance(detail, str):
             self.detail += " ("+detail+")"
     def __str__(self):
@@ -34,16 +34,18 @@ class BadHandShake(WebSocketException):
     detail = "bad handshake"
 
 class CloseFrameReceived(WebSocketException):
-    detail = "connection close frame received (status={}, reason=\"{}\")"
+    detail = "close frame received (status={} {}, reason=\"{}\")"
     status = CloseFrameStatusCode.NO_STATUS_RECVD
     reason = ""
-    
     def __init__(self, status=CloseFrameStatusCode.NO_STATUS_RECVD, reason=""):
         self.status = status
         self.reason = reason
-    
     def __str__(self):
-        return self.detail.format(self.status, self.reason)
+        return self.detail.format(
+            self.status,
+            WebSocketCode.CloseFrameStatusCode.name[self.status],
+            self.reason
+        )
 
 class ClientSleeping(WebSocketException):
     detail = "client is sleeping"

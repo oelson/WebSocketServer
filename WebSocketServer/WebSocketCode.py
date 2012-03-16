@@ -16,6 +16,15 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301, USA.
 
+class WebSocketDebugLevel:
+    """
+    Various debug level
+    """
+    PRINT_NOTHING = 0 # Quiet
+    PRINT_INFO    = 1
+    PRINT_ERROR   = 2
+    PRINT_DATA    = 3 # Print data flow
+
 class WebSocketState:
     """
     WebSocket connection states

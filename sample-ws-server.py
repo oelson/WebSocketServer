@@ -23,21 +23,19 @@
 import sys
 import signal
 from time import sleep
-from WebSocketServer import WebSocketServer
+from WebSocketServer import WebSocketServer, WebSocketCode
 
 # Define how clients' data is treated
-# "self" represents the thread that handles the data
+# "handler" represents the thread that handles the data
 # "data" is the UTF-8 string (or the byte array) the thread just received
-def handle(self, msg):
+def handle(handler, msg):
     """
-    Here are some example of how you can handle data
+    Handle a message from a client
     """
-    # 1) send the message to all other clients (except the current thread's one)
-    for t in self.server.threadPool:
-        if self.addr != t.addr:
-            t.send(msg)
-    # 2) resend the message to the client
-    #self.send(msg)
+    # Broadcast the message with (ip, socket) prefixed
+    for t in handler.server.threadPool:
+        if handler.addr != t.addr:
+            t.send("{},{}:{}".format(handler.addr[0], handler.addr[1], msg))
 
 # Create the server and give it the method to trigger when receiving data from
 # a client
@@ -45,7 +43,8 @@ server = WebSocketServer.server(
     addr="",
     host="localhost",
     port=8080,
-    handle=handle
+    handle=handle,
+    debug=WebSocketCode.WebSocketDebugLevel.PRINT_INFO
 )
 
 # Ask the server to stop on SIGINT(2) or SIGTERM(15)
@@ -60,4 +59,4 @@ server.start()
 # The __main__ thread shouldn't terminate, otherwise signals couldn't be
 # handled and the server (so as other threads) would become orphaned
 while server.running and server.threadPool:
-    sleep(.1)
+    signal.pause()
