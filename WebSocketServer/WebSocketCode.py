@@ -29,20 +29,22 @@ class WebSocketState:
     """
     WebSocket connection states
     """
-    STATE_CONNECTING        = 0 # Socket opened, handshaking
-    STATE_OPEN              = 1 # Hanshake done, receiving & sending
-    STATE_CLOSURE_INITIATED = 2 # Closure initiated by the server
-    STATE_CLOSURE_REQUESTED = 3 # Closure initiated by the client
-    STATE_WAIT_CLOSURE_ACK  = 4 # Waiting for client's close frame
-    STATE_CLOSED            = 5 # Close frame received _and_ sent, socket closed
+    STATE_CONNECTED         = 0 # Socket opened, nothing done
+    STATE_HANDSHAKING       = 1 # Handshaking with the client
+    STATE_READY             = 2 # Hanshake done, receiving & sending
+    STATE_CLOSURE_INITIATED = 3 # Closure initiated by the server
+    STATE_CLOSURE_REQUESTED = 4 # Closure initiated by the client
+    STATE_WAIT_CLOSURE_ACK  = 5 # Waiting for client's close frame
+    STATE_DONE              = 6 # Close frame received _and_ sent, socket closed
     # Human readable Websocket states
     name = {
-        STATE_CONNECTING:         "connecting",
-        STATE_OPEN:               "open",
+        STATE_CONNECTED:          "connected",
+        STATE_HANDSHAKING:        "handshaking",
+        STATE_READY:              "ready",
         STATE_CLOSURE_INITIATED:  "closure initiated",
         STATE_CLOSURE_REQUESTED:  "closure requested",
         STATE_WAIT_CLOSURE_ACK:   "waiting closure ack",
-        STATE_CLOSED:             "closed"
+        STATE_DONE:               "done"
     }
 
 class OperationCode:

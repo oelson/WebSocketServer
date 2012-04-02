@@ -26,19 +26,18 @@ from time import sleep
 from WebSocketServer import WebSocketServer, WebSocketCode
 
 # Define how clients' data is treated
-# "handler" represents the thread that handles the data
-# "data" is the UTF-8 string (or the byte array) the thread just received
-def handle(handler, msg):
+# /handler/ represents the WebSocket client object that received the data
+# /data/ is the UTF-8 string (or the byte array) that was received
+def handle(handler, data):
     """
     Handle a message from a client
     """
-    # Broadcast the message with (ip, socket) prefixed
-    for t in handler.server.threadPool:
+    # Broadcast the received message with (ip, socket) prefixed
+    for t in handler.server.clients:
         if handler.addr != t.addr:
-            t.send("{},{}:{}".format(handler.addr[0], handler.addr[1], msg))
+            t.send("{},{}:{}".format(handler.addr[0], handler.addr[1], data))
 
-# Create the server and give it the method to trigger when receiving data from
-# a client
+# Create the WebSocket server object
 server = WebSocketServer.server(
     addr="",
     host="localhost",
@@ -50,6 +49,7 @@ server = WebSocketServer.server(
 # Ask the server to stop on SIGINT(2) or SIGTERM(15)
 def die(signum, frame):
     server.stop()
+    exit(0)
 
 signal.signal(signal.SIGINT,  die)
 signal.signal(signal.SIGTERM, die)
@@ -58,5 +58,5 @@ server.start()
 
 # The __main__ thread shouldn't terminate, otherwise signals couldn't be
 # handled and the server (so as other threads) would become orphaned
-while server.running and server.threadPool:
+while True:
     signal.pause()
