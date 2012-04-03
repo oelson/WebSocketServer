@@ -23,7 +23,7 @@
 import sys
 import signal
 from time import sleep
-from WebSocketServer import WebSocketServer, WebSocketCode
+from WebSocketServer import WebSocketServer, WebSocketCode, WebSocketException
 
 # Define how clients' data is treated
 # /handler/ represents the WebSocket client object that received the data
@@ -35,7 +35,10 @@ def handle(handler, data):
     # Broadcast the received message with (ip, socket) prefixed
     for t in handler.server.clients:
         if handler.addr != t.addr:
-            t.send("{},{}:{}".format(handler.addr[0], handler.addr[1], data))
+            try:
+                t.send("{},{}:{}".format(handler.addr[0], handler.addr[1], data))
+            except WebSocketException.ClientBadState:
+                pass
 
 # Create the WebSocket server object
 server = WebSocketServer.server(
@@ -43,13 +46,13 @@ server = WebSocketServer.server(
     host="localhost",
     port=8080,
     handle=handle,
-    debug=WebSocketCode.WebSocketDebugLevel.PRINT_INFO
+    debug=WebSocketCode.WebSocketDebugLevel.PRINT_ERROR
 )
 
 # Ask the server to stop on SIGINT(2) or SIGTERM(15)
 def die(signum, frame):
-    server.stop()
-    exit(0)
+    print("signal received: {}".format(signum))
+    server.updateState(WebSocketCode.WebSocketServerState.STATE_STOPPING)
 
 signal.signal(signal.SIGINT,  die)
 signal.signal(signal.SIGTERM, die)
@@ -58,5 +61,5 @@ server.start()
 
 # The __main__ thread shouldn't terminate, otherwise signals couldn't be
 # handled and the server (so as other threads) would become orphaned
-while True:
+while server._state == WebSocketCode.WebSocketServerState.STATE_STARTED:
     signal.pause()

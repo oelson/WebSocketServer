@@ -27,8 +27,11 @@ class WebSocketException(Exception):
     def __str__(self):
         return self.detail
 
-class BadState(WebSocketException):
-    detail = "bad state"
+class ClientBadState(WebSocketException):
+    detail = "client bad state"
+
+class ServerBadState(WebSocketException):
+    detail = "server bad state"
 
 class BadHandShake(WebSocketException):
     detail = "bad handshake"

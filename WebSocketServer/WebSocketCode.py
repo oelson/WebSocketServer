@@ -25,9 +25,9 @@ class WebSocketDebugLevel:
     PRINT_ERROR   = 2
     PRINT_DATA    = 3 # Print data flow
 
-class WebSocketState:
+class WebSocketClientState:
     """
-    WebSocket connection states
+    WebSocket client's states
     """
     STATE_CONNECTED         = 0 # Socket opened, nothing done
     STATE_HANDSHAKING       = 1 # Handshaking with the client
@@ -36,7 +36,7 @@ class WebSocketState:
     STATE_CLOSURE_REQUESTED = 4 # Closure initiated by the client
     STATE_WAIT_CLOSURE_ACK  = 5 # Waiting for client's close frame
     STATE_DONE              = 6 # Close frame received _and_ sent, socket closed
-    # Human readable Websocket states
+    # Human readable states
     name = {
         STATE_CONNECTED:          "connected",
         STATE_HANDSHAKING:        "handshaking",
@@ -45,6 +45,22 @@ class WebSocketState:
         STATE_CLOSURE_REQUESTED:  "closure requested",
         STATE_WAIT_CLOSURE_ACK:   "waiting closure ack",
         STATE_DONE:               "done"
+    }
+
+class WebSocketServerState:
+    """
+    WebSocket server's states
+    """
+    STATE_STARTING  = 0
+    STATE_STARTED   = 1
+    STATE_STOPPING  = 2
+    STATE_STOPPED   = 3
+    # Human readable states
+    name = {
+        STATE_STARTING: "starting",
+        STATE_STARTED:  "started",
+        STATE_STOPPING: "stopping",
+        STATE_STOPPED:  "stopped"
     }
 
 class OperationCode:
