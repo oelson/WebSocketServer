@@ -47,7 +47,10 @@
 		/*
 		 * Canvas drawing
 		 */
+		var drawing = false;
 		function drawGame() {
+			if (drawing) return;
+			drawing = true;
 			ctx.save();
 			ctx.clearRect(0,0,cnv.width,cnv.height);
 			for (var i=0, cur; i < cursorPos.length; i++) {
@@ -60,8 +63,9 @@
 				);
 			}
 			ctx.restore();
+			drawing = false;
 		}
-		cnv.addEventListener("mousemove", drawGame, false);
+		//cnv.addEventListener("mousemove", drawGame, false);
 		/*
 		 * Canvas size
 		 */
@@ -93,19 +97,20 @@
 				sendInterval = setInterval(sendCursorPos, updatePeriod);
 			};
 			s.onmessage = function(e) {
-				if (typeof(e.data) == "object") return;
+				if (typeof(e.data) == "object") return; // Blob
 				var updateMsg = e.data.match(/^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}),(\d+):(\d+),(\d+)$/);
 				var deleteMsg = e.data.match(/^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}),(\d+):d$/);
 				if (updateMsg && updateMsg.length == 5) {
 					var ip=updateMsg[1], socket=parseInt(updateMsg[2]),
 					    x=parseInt(updateMsg[3]), y=parseInt(updateMsg[4]);
-					var found=false
+					var found=false;
 					for (var i=0, cur; i < cursorPos.length; i++) {
 						cur = cursorPos[i];
 						// update the pos of an existing cursor
 						if (cur.ip == ip && cur.socket == socket) {
 							cur.x = x, cur.y = y;
 							found = true;
+							requestAnimationFrame(drawGame);
 						}
 					}
 					// add a new cursor
@@ -116,8 +121,9 @@
 						    x: x,
 						    y: y
 						});
+						requestAnimationFrame(drawGame);
 					}
-					drawGame();
+					
 				}
 				else if (deleteMsg && deleteMsg.length == 3) {
 					var ip=deleteMsg[1], socket=parseInt(deleteMsg[2]);
@@ -130,7 +136,7 @@
 								cursorPos[j] = cursorPos[j+1];
 							}
 							cursorPos.pop();
-							drawGame();
+							requestAnimationFrame(drawGame);
 							break;
 						}
 					}
@@ -160,6 +166,12 @@
 				s.send('d');
 		}
 		window.addEventListener("beforeunload", sendCursorDelete, false);
+		window.requestAnimationFrame = window.requestAnimationFrame
+							        || window.webkitRequestAnimationFrame
+							        || window.mozRequestAnimationFrame
+			                        || window.oRequestAnimationFrame
+			                        || window.msRequestAnimationFrame
+							        || function(c){ window.setTimeout(c, 1000/60); };
 		</script>
 	</body>
 </html>

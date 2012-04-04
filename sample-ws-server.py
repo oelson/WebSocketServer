@@ -52,7 +52,7 @@ server = WebSocketServer.server(
 # Ask the server to stop on SIGINT(2) or SIGTERM(15)
 def die(signum, frame):
     print("signal received: {}".format(signum))
-    server.updateState(WebSocketCode.WebSocketServerState.STATE_STOPPING)
+    server.stop()
 
 signal.signal(signal.SIGINT,  die)
 signal.signal(signal.SIGTERM, die)
@@ -61,5 +61,5 @@ server.start()
 
 # The __main__ thread shouldn't terminate, otherwise signals couldn't be
 # handled and the server (so as other threads) would become orphaned
-while server._state == WebSocketCode.WebSocketServerState.STATE_STARTED:
+while server.is_alive():
     signal.pause()

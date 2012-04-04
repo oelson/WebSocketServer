@@ -51,13 +51,11 @@ class WebSocketServerState:
     """
     WebSocket server's states
     """
-    STATE_STARTING  = 0
-    STATE_STARTED   = 1
-    STATE_STOPPING  = 2
-    STATE_STOPPED   = 3
+    STATE_STARTED   = 0
+    STATE_STOPPING  = 1
+    STATE_STOPPED   = 2
     # Human readable states
     name = {
-        STATE_STARTING: "starting",
         STATE_STARTED:  "started",
         STATE_STOPPING: "stopping",
         STATE_STOPPED:  "stopped"
