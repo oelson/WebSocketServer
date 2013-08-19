@@ -76,7 +76,7 @@ class server(Thread):
         except socket.error as e:
             if self.debug >= WebSocketDebugLevel.PRINT_ERROR:
                 print("err: cannot bind the socket to '{}':{} {}".format(
-                        self.addr, self.port, e),
+                    self.addr, self.port, e),
                     file=stderr)
             try:
                 self.conn.close()
@@ -123,7 +123,7 @@ class server(Thread):
                  state in self._valid_state_transition[self._state]:
             self._state = state
         else:
-            raise ServerBadState("transition \"{}\"->\"{}\" forbidden".format(
+            raise ServerBadState('transition "{}"->"{}" forbidden'.format(
                 WebSocketServerState.name[old_state],
                 WebSocketServerState.name[state]
             ))
@@ -277,12 +277,12 @@ class client(Thread):
                  state in self._valid_state_transition[self._state]:
             self._state = state
         else:
-            raise ClientBadState("transition \"{}\"->\"{}\" forbidden".format(
+            raise ClientBadState('transition "{}"->"{}" forbidden'.format(
                 WebSocketClientState.name[old_state],
                 WebSocketClientState.name[state]
             ))
         if self.server.debug >= WebSocketDebugLevel.PRINT_INFO:
-            print("info: client {} transition (\"{}\"->\"{}\")".format(
+            print('info: client {} transition ("{}"->"{}")'.format(
                 self.addr,
                 WebSocketClientState.name[old_state],
                 WebSocketClientState.name[state]
@@ -479,7 +479,7 @@ class client(Thread):
         if not data:
             return
         if self.server.debug >= WebSocketDebugLevel.PRINT_DATA:
-            print("info: {} send \"{}\"".format(self.addr, data))
+            print('info: {} send "{}"'.format(self.addr, data))
         # Convert the message to bytes
         if isinstance(data, str):
             data = data.encode("utf-8")
@@ -505,6 +505,20 @@ class client(Thread):
         Last instructions to execute before exiting run()
         """
         self.server.remove(self)
+    
+    def info(self, msg):
+        print("info: client ('{}', {}) {}".format(
+            self.addr[0],
+            self.addr[1],
+            msg
+        ))
+    
+    def error(self, msg):
+        print("err: client ('{}', {}) {}".format(
+            self.addr[0],
+            self.addr[1],
+            msg
+        ), file=stderr)
 
 class frame:
     """
