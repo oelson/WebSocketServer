@@ -159,29 +159,35 @@ class client(Thread):
     _frameStack  = []
     _closeStatus = CloseFrameStatusCode.NO_STATUS_RECVD
     _closeReason = ""
+
     _state = WebSocketClientState.STATE_CONNECTED
+
+    # state-machine transitions
     _valid_state_transition = {
         WebSocketClientState.STATE_CONNECTED:
             (WebSocketClientState.STATE_HANDSHAKING,
              WebSocketClientState.STATE_DONE),
-        
+
         WebSocketClientState.STATE_HANDSHAKING:
             (WebSocketClientState.STATE_READY,
              WebSocketClientState.STATE_DONE),
-        
+
         WebSocketClientState.STATE_READY:
             (WebSocketClientState.STATE_CLOSURE_INITIATED,
              WebSocketClientState.STATE_CLOSURE_REQUESTED,
              WebSocketClientState.STATE_DONE),
-        
+
         WebSocketClientState.STATE_CLOSURE_INITIATED:
             (WebSocketClientState.STATE_WAIT_CLOSURE_ACK,
              WebSocketClientState.STATE_DONE),
-        
+
         WebSocketClientState.STATE_CLOSURE_REQUESTED:
             (WebSocketClientState.STATE_DONE, ),
-        
+
         WebSocketClientState.STATE_WAIT_CLOSURE_ACK:
+            (WebSocketClientState.STATE_DONE, )
+
+        WebSocketClientState.STATE_DONE:
             (WebSocketClientState.STATE_DONE, )
     }
     
