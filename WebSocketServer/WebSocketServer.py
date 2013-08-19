@@ -225,19 +225,15 @@ class client(Thread):
                 # problem: this implies that we can't read a further close frame
                 if self._state == WebSocketClientState.STATE_CLOSURE_INITIATED:
                     break
-                if self.server.debug >= WebSocketDebugLevel.PRINT_ERROR:
-                    print("err: {} {}".format(self.addr, e), file=stderr)
+                self.error(e)
                 self.updateState(WebSocketClientState.STATE_DONE)
             except BadFrame as e:
-                if self.server.debug >= WebSocketDebugLevel.PRINT_ERROR:
-                    print("err: {} {}".format(self.addr, e), file=stderr)
+                self.error(e)
                 self.updateState(WebSocketClientState.STATE_DONE)
             except UnicodeDecodeError:
                 self._closeStatus = CloseFrameStatusCode.UNSUPPORTED_DATA
                 self._closeReason = "cannot decode data as UTF-8"
-                if self.server.debug >= WebSocketDebugLevel.PRINT_ERROR:
-                    print("err: {} cannot decode data as UTF-8".format(
-                        self.addr), file=stderr)
+                self.error(self._closeReason)
                 self.updateState(WebSocketClientState.STATE_CLOSURE_INITIATED)
             except CloseFrameReceived as e:
                 # Send back exactly the same close frame data
@@ -245,8 +241,7 @@ class client(Thread):
                 self._closeReason = e.reason
                 self.updateState(WebSocketClientState.STATE_CLOSURE_REQUESTED)
             except socket.error as e:
-                if self.server.debug >= WebSocketDebugLevel.PRINT_ERROR:
-                    print("err: {} {}".format(self.addr, e), file=stderr)
+                self.error(e)
                 self.updateState(WebSocketClientState.STATE_DONE)
             try:
                 # Call the trigger function on the received message
@@ -513,18 +508,17 @@ class client(Thread):
         self.server.remove(self)
     
     def info(self, msg):
-        print("info: client ('{}', {}) {}".format(
-            self.addr[0],
-            self.addr[1],
+        print("info: client {} {}".format(
+            self.addr,
             msg
         ))
     
     def error(self, msg):
-        print("err: client ('{}', {}) {}".format(
-            self.addr[0],
-            self.addr[1],
-            msg
-        ), file=stderr)
+        if self.server.debug >= WebSocketDebugLevel.PRINT_ERROR:
+            print("err: client {} {}".format(
+                self.addr,
+                msg
+            ), file=stderr)
 
 class frame:
     """
