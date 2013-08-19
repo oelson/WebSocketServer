@@ -279,6 +279,14 @@ class client(Thread):
         
         self.stop()
     
+    def setCloseStatus(self, status, reason):
+        """
+        Use this method beforce closing in order to send coherent data, i.e. to
+        inform the client of the reason the the server stops.
+        """
+        self._closeStatus = status
+        self._closeReason = reason
+    
     def updateState(self, state):
         """
         Rules the state machine transitions
