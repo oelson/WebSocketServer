@@ -132,9 +132,9 @@ class server(Thread):
         # Ask to all clients to stop
         # TODO add a timeout for forced disconnection
         for t in self.clients:
-            t.updateState(WebSocketClientState.STATE_CLOSURE_INITIATED)
-            # abort any waiting recv() operation
-            t.sock.shutdown(socket.SHUT_RD)
+            t.updateState(WebSocketClientState.STATE_INITIATE_CLOSURE)
+            # TODO abort any waiting recv() operation
+            # t.sock.shutdown(socket.SHUT_RD)
         # Wait for all clients to return
         for t in self.clients: t.join()
         self.conn.close()
@@ -176,11 +176,11 @@ class client(Thread):
              WebSocketClientState.STATE_DONE),
 
         WebSocketClientState.STATE_READY:
-            (WebSocketClientState.STATE_CLOSURE_INITIATED,
+            (WebSocketClientState.STATE_INITIATE_CLOSURE,
              WebSocketClientState.STATE_CLOSURE_REQUESTED,
              WebSocketClientState.STATE_DONE),
 
-        WebSocketClientState.STATE_CLOSURE_INITIATED:
+        WebSocketClientState.STATE_INITIATE_CLOSURE:
             (WebSocketClientState.STATE_WAIT_CLOSURE_ACK,
              WebSocketClientState.STATE_DONE),
 
@@ -196,8 +196,10 @@ class client(Thread):
     
     def __init__(self, server, sock, addr):
         self.server = server
-        self.sock   = sock
-        self.addr   = addr
+        self.sock = sock
+        self.addr = addr
+        # need to set non-blocking mode because of TODO
+        self.sock.settimeout(1.)
         Thread.__init__(self)
     
     def run(self):
@@ -222,11 +224,11 @@ class client(Thread):
             try:
                 data = self.recv()
             except IncompleteFrame as e:
-                #TODO this is a WORKAROUND: recv() may have been aborted by
-                # closing the socket in read mode
-                # problem: this implies that we can't read a further close frame
-                if self._state == WebSocketClientState.STATE_CLOSURE_INITIATED:
+                # recv() may have been aborted by closing the socket in read
+                # mode in order to send a closing frame
+                if self._state == WebSocketClientState.STATE_INITIATE_CLOSURE:
                     break
+                # else this is a "normal" error
                 self.error(e)
                 self.updateState(WebSocketClientState.STATE_DONE)
             except BadFrame as e:
@@ -236,12 +238,14 @@ class client(Thread):
                 self._closeStatus = CloseFrameStatusCode.UNSUPPORTED_DATA
                 self._closeReason = "cannot decode data as UTF-8"
                 self.error(self._closeReason)
-                self.updateState(WebSocketClientState.STATE_CLOSURE_INITIATED)
+                self.updateState(WebSocketClientState.STATE_INITIATE_CLOSURE)
             except CloseFrameReceived as e:
                 # Send back exactly the same close frame data
                 self._closeStatus = e.status
                 self._closeReason = e.reason
                 self.updateState(WebSocketClientState.STATE_CLOSURE_REQUESTED)
+            except socket.timeout as e:
+                continue
             except socket.error as e:
                 self.error(e)
                 self.updateState(WebSocketClientState.STATE_DONE)
@@ -257,10 +261,13 @@ class client(Thread):
                 break
 
         # Initiate the closing handshake
-        if self._state == WebSocketClientState.STATE_CLOSURE_INITIATED:
+        if self._state == WebSocketClientState.STATE_INITIATE_CLOSURE:
             # The method itself is responsible for updating the thread's state
             try:
-                self.initiateClosingHandShake(self._closeStatus, self._closeReason)
+                self.initiateClosingHandShake(
+                    self._closeStatus,
+                    self._closeReason
+                )
             except ClientSleeping:
                 self.error("client sleeping")
             self.updateState(WebSocketClientState.STATE_DONE)
@@ -270,8 +277,8 @@ class client(Thread):
             # Send the ack connection close frame
             self.sendClosingFrame(self._closeStatus, self._closeReason)
             # Don't wait for further communcation
-            self.sock.close()
             self.updateState(WebSocketClientState.STATE_DONE)
+            self.sock.close()
         
         # Apply the server's common exit method on the thread
         if isinstance(self.server.exit, types.FunctionType):
@@ -373,22 +380,19 @@ class client(Thread):
         Raise an exception if the client doesn't respond quickly enought so the
         caller can close the socket itself
         """
-        self.sendClosingFrame()
+        self.sendClosingFrame(status, reason)
         # Wait for client's acknowledgment
         self.updateState(WebSocketClientState.STATE_WAIT_CLOSURE_ACK)
         self.sock.settimeout(1.)
         try:
-            #TODO None received since socket was shutdowned in RCV mode
             self.recv()
         except CloseFrameReceived:
             # Closing handshake successfull
-            self.updateState(WebSocketClientState.STATE_WAIT_CLOSURE_ACK)
+            self.updateState(WebSocketClientState.STATE_DONE)
         except socket.timeout:
             raise ClientSleeping
     
-    def sendClosingFrame(self,
-                         status=CloseFrameStatusCode.NO_STATUS_RECVD,
-                         reason=""):
+    def sendClosingFrame(self, status, reason):
         """
         Send a close frame only if it was never sent before and if the
         connection allows it
@@ -396,6 +400,8 @@ class client(Thread):
         data = pack("!H", status)
         if isinstance(reason, str):
             data += reason.encode("utf-8")
+        else:
+            data += reason
         f = frame(
             True,
             False, False, False,
@@ -462,7 +468,8 @@ class client(Thread):
         Return a message or None
         """
         # Ge the full message potentially from multiple frames
-        while self._state == WebSocketClientState.STATE_READY:
+        while self._state in (WebSocketClientState.STATE_READY,
+                              WebSocketClientState.STATE_WAIT_CLOSURE_ACK):
             f = self.recv_frame()
             # The client is asking to close the WebSocket
             if f.Opcode == OperationCode.CONNECTION_CLOSE_FRAME:

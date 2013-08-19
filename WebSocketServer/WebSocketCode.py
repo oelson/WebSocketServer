@@ -32,7 +32,7 @@ class WebSocketClientState:
     STATE_CONNECTED         = 0 # Socket opened, nothing done
     STATE_HANDSHAKING       = 1 # Handshaking with the client
     STATE_READY             = 2 # Hanshake done, receiving & sending
-    STATE_CLOSURE_INITIATED = 3 # Closure initiated by the server
+    STATE_INITIATE_CLOSURE = 3 # Closure initiated by the server
     STATE_CLOSURE_REQUESTED = 4 # Closure initiated by the client
     STATE_WAIT_CLOSURE_ACK  = 5 # Waiting for client's close frame
     STATE_DONE              = 6 # Close frame received _and_ sent, socket closed
@@ -41,7 +41,7 @@ class WebSocketClientState:
         STATE_CONNECTED:          "connected",
         STATE_HANDSHAKING:        "handshaking",
         STATE_READY:              "ready",
-        STATE_CLOSURE_INITIATED:  "closure initiated",
+        STATE_INITIATE_CLOSURE:   "closure initiated",
         STATE_CLOSURE_REQUESTED:  "closure requested",
         STATE_WAIT_CLOSURE_ACK:   "waiting closure ack",
         STATE_DONE:               "done"
