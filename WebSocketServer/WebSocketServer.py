@@ -185,7 +185,7 @@ class client(Thread):
             (WebSocketClientState.STATE_DONE, ),
 
         WebSocketClientState.STATE_WAIT_CLOSURE_ACK:
-            (WebSocketClientState.STATE_DONE, )
+            (WebSocketClientState.STATE_DONE, ),
 
         WebSocketClientState.STATE_DONE:
             (WebSocketClientState.STATE_DONE, )
