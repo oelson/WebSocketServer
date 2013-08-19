@@ -238,10 +238,9 @@ class client(Thread):
                 self.error(self._closeReason)
                 self.updateState(WebSocketClientState.STATE_INITIATE_CLOSURE)
             except CloseFrameReceived as e:
-                # Send back exactly the same close frame data
-                self._closeStatus = e.status
-                self._closeReason = e.reason
+                self.setCloseStatus(CloseFrameStatusCode.NORMAL_CLOSURE)
                 self.updateState(WebSocketClientState.STATE_CLOSURE_REQUESTED)
+                break
             except socket.timeout as e:
                 continue
             except socket.error as e:
@@ -262,15 +261,12 @@ class client(Thread):
         if self._state == WebSocketClientState.STATE_INITIATE_CLOSURE:
             # The method itself is responsible for updating the thread's state
             try:
-                self.initiateClosingHandShake(
-                    self._closeStatus,
-                    self._closeReason
-                )
+                self.initiateClosingHandShake(self._closeStatus, self._closeReason)
             except ClientSleeping:
                 self.error("client sleeping")
             self.updateState(WebSocketClientState.STATE_DONE)
             self.sock.close()
-        # The client sent a connection close frame
+        # The client has sent a connection close frame
         elif self._state == WebSocketClientState.STATE_CLOSURE_REQUESTED:
             # Send the ack connection close frame
             self.sendClosingFrame(self._closeStatus, self._closeReason)
@@ -284,7 +280,7 @@ class client(Thread):
         
         self.stop()
     
-    def setCloseStatus(self, status, reason):
+    def setCloseStatus(self, status, reason=""):
         """
         Use this method beforce closing in order to send coherent data, i.e. to
         inform the client of the reason the the server stops.
@@ -471,15 +467,15 @@ class client(Thread):
             f = self.recv_frame()
             # The client is asking to close the WebSocket
             if f.Opcode == OperationCode.CONNECTION_CLOSE_FRAME:
-                status, reason = f.extractData(f.Opcode)
+                status, reason = f.extractData()
                 raise CloseFrameReceived(status, reason)
             # The frame is the last of a series
             if f.FIN:
-                data = f.extractData(f.Opcode)
+                data = f.extractData()
                 # Build back the original message
                 while self._frameStack:
                    f = self._frameStack.pop()
-                   data = f.extractData(code) + data
+                   data = f.extractData() + data
                 self.data('recv "{}"'.format(data))
                 return data
             # Push the frame on the stack until the final frame is received
@@ -582,17 +578,13 @@ class frame:
         # Return an unmasked copy of the payload data
         return bytes(tmp)
     
-    def extractData(self, Opcode=None):
+    def extractData(self):
         """
         Return unmasked data
         If the frame contains text, return an utf-8 string
         If the frame is a close-connection one, return the code and the reason
         Else return a byte array
         """
-        if Opcode == None:
-            if self.Opcode == OperationCode.CONTINUATION_FRAME:
-                raise TypeError("missing a valid Opcode")
-            Opcode = self.Opcode
         # Unmasking
         if self.Mask and self.Payload_data != None:
             data = self.getUnmaskedData()
