@@ -214,7 +214,7 @@ class client(Thread):
                 print("err: {} {}".format(self.addr, e), file=stderr)
             # Abort
             self.updateState(WebSocketClientState.STATE_DONE)
-        
+        data = None
         # Receive/send forever
         while self._state == WebSocketClientState.STATE_READY:
             try:
@@ -245,7 +245,11 @@ class client(Thread):
                 self.updateState(WebSocketClientState.STATE_DONE)
             try:
                 # Call the trigger function on the received message
-                self.server.handle(self, data)
+                if data is None:
+                    self.error("no data received")
+                    self.updateState(WebSocketClientState.STATE_DONE)
+                else:
+                    self.server.handle(self, data)
             except socket.error as e:
                 self.updateState(WebSocketClientState.STATE_DONE)
                 break
