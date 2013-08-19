@@ -133,8 +133,6 @@ class server(Thread):
         # TODO add a timeout for forced disconnection
         for t in self.clients:
             t.updateState(WebSocketClientState.STATE_INITIATE_CLOSURE)
-            # TODO abort any waiting recv() operation
-            # t.sock.shutdown(socket.SHUT_RD)
         # Wait for all clients to return
         for t in self.clients: t.join()
         self.conn.close()
