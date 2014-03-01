@@ -540,6 +540,16 @@ class client(Thread):
                 msg
             ))
 
+    def close(self, status, reason):
+        """
+        TODO
+        """
+        self.updateState(WebSocketClientState.STATE_INITIATE_CLOSURE)
+        self.initiateClosingHandShake(
+            status=status,
+            reason=reason
+        )
+
 class frame:
     """
     Represent a WebSocket frame

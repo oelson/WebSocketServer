@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!-- saved from url=(0048)http://tools.ietf.org/html/rfc6455#section-5.5.1 -->
+<!-- saved from url=(0048)#section-5.5.1 -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head profile="http://dublincore.org/documents/2008/08/04/dc-html/"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <meta name="robots" content="index,follow">
@@ -189,119 +189,119 @@ Copyright Notice
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                    [Page 1]</span>
-</pre><pre class="newpage"><a name="page-2" id="page-2" href="http://tools.ietf.org/html/rfc6455#page-2" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-2" id="page-2" href="#page-2" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
-   include Simplified BSD License text as described in <a href="http://tools.ietf.org/html/rfc6455#section-4">Section 4</a>.e of
+   include Simplified BSD License text as described in <a href="#section-4">Section 4</a>.e of
    the Trust Legal Provisions and are provided without warranty as
    described in the Simplified BSD License.
 
 Table of Contents
 
-   <a href="http://tools.ietf.org/html/rfc6455#section-1">1</a>.  Introduction . . . . . . . . . . . . . . . . . . . . . . . . .  <a href="http://tools.ietf.org/html/rfc6455#page-4">4</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-1.1">1.1</a>.  Background . . . . . . . . . . . . . . . . . . . . . . . .  <a href="http://tools.ietf.org/html/rfc6455#page-4">4</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-1.2">1.2</a>.  Protocol Overview  . . . . . . . . . . . . . . . . . . . .  <a href="http://tools.ietf.org/html/rfc6455#page-5">5</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-1.3">1.3</a>.  Opening Handshake  . . . . . . . . . . . . . . . . . . . .  <a href="http://tools.ietf.org/html/rfc6455#page-6">6</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-1.4">1.4</a>.  Closing Handshake  . . . . . . . . . . . . . . . . . . . .  <a href="http://tools.ietf.org/html/rfc6455#page-9">9</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-1.5">1.5</a>.  Design Philosophy  . . . . . . . . . . . . . . . . . . . .  <a href="http://tools.ietf.org/html/rfc6455#page-9">9</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-1.6">1.6</a>.  Security Model . . . . . . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-10">10</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-1.7">1.7</a>.  Relationship to TCP and HTTP . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-11">11</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-1.8">1.8</a>.  Establishing a Connection  . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-11">11</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-1.9">1.9</a>.  Subprotocols Using the WebSocket Protocol  . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-12">12</a>
-   <a href="http://tools.ietf.org/html/rfc6455#section-2">2</a>.  Conformance Requirements . . . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-12">12</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-2.1">2.1</a>.  Terminology and Other Conventions  . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-13">13</a>
-   <a href="http://tools.ietf.org/html/rfc6455#section-3">3</a>.  WebSocket URIs . . . . . . . . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-14">14</a>
-   <a href="http://tools.ietf.org/html/rfc6455#section-4">4</a>.  Opening Handshake  . . . . . . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-14">14</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-4.1">4.1</a>.  Client Requirements  . . . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-14">14</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-4.2">4.2</a>.  Server-Side Requirements . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-20">20</a>
-       <a href="http://tools.ietf.org/html/rfc6455#section-4.2.1">4.2.1</a>.  Reading the Client's Opening Handshake . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-21">21</a>
-       <a href="http://tools.ietf.org/html/rfc6455#section-4.2.2">4.2.2</a>.  Sending the Server's Opening Handshake . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-22">22</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-4.3">4.3</a>.  Collected ABNF for New Header Fields Used in Handshake . . <a href="http://tools.ietf.org/html/rfc6455#page-25">25</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-4.4">4.4</a>.  Supporting Multiple Versions of WebSocket Protocol . . . . <a href="http://tools.ietf.org/html/rfc6455#page-26">26</a>
-   <a href="http://tools.ietf.org/html/rfc6455#section-5">5</a>.  Data Framing . . . . . . . . . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-27">27</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-5.1">5.1</a>.  Overview . . . . . . . . . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-27">27</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-5.2">5.2</a>.  Base Framing Protocol  . . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-28">28</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-5.3">5.3</a>.  Client-to-Server Masking . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-32">32</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-5.4">5.4</a>.  Fragmentation  . . . . . . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-33">33</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-5.5">5.5</a>.  Control Frames . . . . . . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-36">36</a>
-       <a href="./RFC 6455 - The WebSocket Protocol_files/RFC 6455 - The WebSocket Protocol.html">5.5.1</a>.  Close  . . . . . . . . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-36">36</a>
-       <a href="http://tools.ietf.org/html/rfc6455#section-5.5.2">5.5.2</a>.  Ping . . . . . . . . . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-37">37</a>
-       <a href="http://tools.ietf.org/html/rfc6455#section-5.5.3">5.5.3</a>.  Pong . . . . . . . . . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-37">37</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-5.6">5.6</a>.  Data Frames  . . . . . . . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-38">38</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-5.7">5.7</a>.  Examples . . . . . . . . . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-38">38</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-5.8">5.8</a>.  Extensibility  . . . . . . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-39">39</a>
-   <a href="http://tools.ietf.org/html/rfc6455#section-6">6</a>.  Sending and Receiving Data . . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-39">39</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-6.1">6.1</a>.  Sending Data . . . . . . . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-39">39</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-6.2">6.2</a>.  Receiving Data . . . . . . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-40">40</a>
-   <a href="http://tools.ietf.org/html/rfc6455#section-7">7</a>.  Closing the Connection . . . . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-41">41</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-7.1">7.1</a>.  Definitions  . . . . . . . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-41">41</a>
-       <a href="http://tools.ietf.org/html/rfc6455#section-7.1.1">7.1.1</a>.  Close the WebSocket Connection . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-41">41</a>
-       <a href="http://tools.ietf.org/html/rfc6455#section-7.1.2">7.1.2</a>.  Start the WebSocket Closing Handshake  . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-42">42</a>
-       <a href="http://tools.ietf.org/html/rfc6455#section-7.1.3">7.1.3</a>.  The WebSocket Closing Handshake is Started . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-42">42</a>
-       <a href="http://tools.ietf.org/html/rfc6455#section-7.1.4">7.1.4</a>.  The WebSocket Connection is Closed . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-42">42</a>
-       <a href="http://tools.ietf.org/html/rfc6455#section-7.1.5">7.1.5</a>.  The WebSocket Connection Close Code  . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-42">42</a>
+   <a href="#section-1">1</a>.  Introduction . . . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-4">4</a>
+     <a href="#section-1.1">1.1</a>.  Background . . . . . . . . . . . . . . . . . . . . . . . .  <a href="#page-4">4</a>
+     <a href="#section-1.2">1.2</a>.  Protocol Overview  . . . . . . . . . . . . . . . . . . . .  <a href="#page-5">5</a>
+     <a href="#section-1.3">1.3</a>.  Opening Handshake  . . . . . . . . . . . . . . . . . . . .  <a href="#page-6">6</a>
+     <a href="#section-1.4">1.4</a>.  Closing Handshake  . . . . . . . . . . . . . . . . . . . .  <a href="#page-9">9</a>
+     <a href="#section-1.5">1.5</a>.  Design Philosophy  . . . . . . . . . . . . . . . . . . . .  <a href="#page-9">9</a>
+     <a href="#section-1.6">1.6</a>.  Security Model . . . . . . . . . . . . . . . . . . . . . . <a href="#page-10">10</a>
+     <a href="#section-1.7">1.7</a>.  Relationship to TCP and HTTP . . . . . . . . . . . . . . . <a href="#page-11">11</a>
+     <a href="#section-1.8">1.8</a>.  Establishing a Connection  . . . . . . . . . . . . . . . . <a href="#page-11">11</a>
+     <a href="#section-1.9">1.9</a>.  Subprotocols Using the WebSocket Protocol  . . . . . . . . <a href="#page-12">12</a>
+   <a href="#section-2">2</a>.  Conformance Requirements . . . . . . . . . . . . . . . . . . . <a href="#page-12">12</a>
+     <a href="#section-2.1">2.1</a>.  Terminology and Other Conventions  . . . . . . . . . . . . <a href="#page-13">13</a>
+   <a href="#section-3">3</a>.  WebSocket URIs . . . . . . . . . . . . . . . . . . . . . . . . <a href="#page-14">14</a>
+   <a href="#section-4">4</a>.  Opening Handshake  . . . . . . . . . . . . . . . . . . . . . . <a href="#page-14">14</a>
+     <a href="#section-4.1">4.1</a>.  Client Requirements  . . . . . . . . . . . . . . . . . . . <a href="#page-14">14</a>
+     <a href="#section-4.2">4.2</a>.  Server-Side Requirements . . . . . . . . . . . . . . . . . <a href="#page-20">20</a>
+       <a href="#section-4.2.1">4.2.1</a>.  Reading the Client's Opening Handshake . . . . . . . . <a href="#page-21">21</a>
+       <a href="#section-4.2.2">4.2.2</a>.  Sending the Server's Opening Handshake . . . . . . . . <a href="#page-22">22</a>
+     <a href="#section-4.3">4.3</a>.  Collected ABNF for New Header Fields Used in Handshake . . <a href="#page-25">25</a>
+     <a href="#section-4.4">4.4</a>.  Supporting Multiple Versions of WebSocket Protocol . . . . <a href="#page-26">26</a>
+   <a href="#section-5">5</a>.  Data Framing . . . . . . . . . . . . . . . . . . . . . . . . . <a href="#page-27">27</a>
+     <a href="#section-5.1">5.1</a>.  Overview . . . . . . . . . . . . . . . . . . . . . . . . . <a href="#page-27">27</a>
+     <a href="#section-5.2">5.2</a>.  Base Framing Protocol  . . . . . . . . . . . . . . . . . . <a href="#page-28">28</a>
+     <a href="#section-5.3">5.3</a>.  Client-to-Server Masking . . . . . . . . . . . . . . . . . <a href="#page-32">32</a>
+     <a href="#section-5.4">5.4</a>.  Fragmentation  . . . . . . . . . . . . . . . . . . . . . . <a href="#page-33">33</a>
+     <a href="#section-5.5">5.5</a>.  Control Frames . . . . . . . . . . . . . . . . . . . . . . <a href="#page-36">36</a>
+       <a href="./RFC 6455 - The WebSocket Protocol_files/RFC 6455 - The WebSocket Protocol.html">5.5.1</a>.  Close  . . . . . . . . . . . . . . . . . . . . . . . . <a href="#page-36">36</a>
+       <a href="#section-5.5.2">5.5.2</a>.  Ping . . . . . . . . . . . . . . . . . . . . . . . . . <a href="#page-37">37</a>
+       <a href="#section-5.5.3">5.5.3</a>.  Pong . . . . . . . . . . . . . . . . . . . . . . . . . <a href="#page-37">37</a>
+     <a href="#section-5.6">5.6</a>.  Data Frames  . . . . . . . . . . . . . . . . . . . . . . . <a href="#page-38">38</a>
+     <a href="#section-5.7">5.7</a>.  Examples . . . . . . . . . . . . . . . . . . . . . . . . . <a href="#page-38">38</a>
+     <a href="#section-5.8">5.8</a>.  Extensibility  . . . . . . . . . . . . . . . . . . . . . . <a href="#page-39">39</a>
+   <a href="#section-6">6</a>.  Sending and Receiving Data . . . . . . . . . . . . . . . . . . <a href="#page-39">39</a>
+     <a href="#section-6.1">6.1</a>.  Sending Data . . . . . . . . . . . . . . . . . . . . . . . <a href="#page-39">39</a>
+     <a href="#section-6.2">6.2</a>.  Receiving Data . . . . . . . . . . . . . . . . . . . . . . <a href="#page-40">40</a>
+   <a href="#section-7">7</a>.  Closing the Connection . . . . . . . . . . . . . . . . . . . . <a href="#page-41">41</a>
+     <a href="#section-7.1">7.1</a>.  Definitions  . . . . . . . . . . . . . . . . . . . . . . . <a href="#page-41">41</a>
+       <a href="#section-7.1.1">7.1.1</a>.  Close the WebSocket Connection . . . . . . . . . . . . <a href="#page-41">41</a>
+       <a href="#section-7.1.2">7.1.2</a>.  Start the WebSocket Closing Handshake  . . . . . . . . <a href="#page-42">42</a>
+       <a href="#section-7.1.3">7.1.3</a>.  The WebSocket Closing Handshake is Started . . . . . . <a href="#page-42">42</a>
+       <a href="#section-7.1.4">7.1.4</a>.  The WebSocket Connection is Closed . . . . . . . . . . <a href="#page-42">42</a>
+       <a href="#section-7.1.5">7.1.5</a>.  The WebSocket Connection Close Code  . . . . . . . . . <a href="#page-42">42</a>
 
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                    [Page 2]</span>
-</pre><pre class="newpage"><a name="page-3" id="page-3" href="http://tools.ietf.org/html/rfc6455#page-3" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-3" id="page-3" href="#page-3" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
-       <a href="http://tools.ietf.org/html/rfc6455#section-7.1.6">7.1.6</a>.  The WebSocket Connection Close Reason  . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-43">43</a>
-       <a href="http://tools.ietf.org/html/rfc6455#section-7.1.7">7.1.7</a>.  Fail the WebSocket Connection  . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-43">43</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-7.2">7.2</a>.  Abnormal Closures  . . . . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-44">44</a>
-       <a href="http://tools.ietf.org/html/rfc6455#section-7.2.1">7.2.1</a>.  Client-Initiated Closure . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-44">44</a>
-       <a href="http://tools.ietf.org/html/rfc6455#section-7.2.2">7.2.2</a>.  Server-Initiated Closure . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-44">44</a>
-       <a href="http://tools.ietf.org/html/rfc6455#section-7.2.3">7.2.3</a>.  Recovering from Abnormal Closure . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-44">44</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-7.3">7.3</a>.  Normal Closure of Connections  . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-45">45</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-7.4">7.4</a>.  Status Codes . . . . . . . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-45">45</a>
-       <a href="http://tools.ietf.org/html/rfc6455#section-7.4.1">7.4.1</a>.  Defined Status Codes . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-45">45</a>
-       <a href="http://tools.ietf.org/html/rfc6455#section-7.4.2">7.4.2</a>.  Reserved Status Code Ranges  . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-47">47</a>
-   <a href="http://tools.ietf.org/html/rfc6455#section-8">8</a>.  Error Handling . . . . . . . . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-48">48</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-8.1">8.1</a>.  Handling Errors in UTF-8-Encoded Data  . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-48">48</a>
-   <a href="http://tools.ietf.org/html/rfc6455#section-9">9</a>.  Extensions . . . . . . . . . . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-48">48</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-9.1">9.1</a>.  Negotiating Extensions . . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-48">48</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-9.2">9.2</a>.  Known Extensions . . . . . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-50">50</a>
-   <a href="http://tools.ietf.org/html/rfc6455#section-10">10</a>. Security Considerations  . . . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-50">50</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-10.1">10.1</a>. Non-Browser Clients  . . . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-50">50</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-10.2">10.2</a>. Origin Considerations  . . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-50">50</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-10.3">10.3</a>. Attacks On Infrastructure (Masking)  . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-51">51</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-10.4">10.4</a>. Implementation-Specific Limits . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-52">52</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-10.5">10.5</a>. WebSocket Client Authentication  . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-53">53</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-10.6">10.6</a>. Connection Confidentiality and Integrity . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-53">53</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-10.7">10.7</a>. Handling of Invalid Data . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-53">53</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-10.8">10.8</a>. Use of SHA-1 by the WebSocket Handshake  . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-54">54</a>
-   <a href="http://tools.ietf.org/html/rfc6455#section-11">11</a>. IANA Considerations  . . . . . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-54">54</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-11.1">11.1</a>. Registration of New URI Schemes  . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-54">54</a>
-       <a href="http://tools.ietf.org/html/rfc6455#section-11.1.1">11.1.1</a>. Registration of "ws" Scheme  . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-54">54</a>
-       <a href="http://tools.ietf.org/html/rfc6455#section-11.1.2">11.1.2</a>. Registration of "wss" Scheme . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-55">55</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-11.2">11.2</a>. Registration of the "WebSocket" HTTP Upgrade Keyword . . . <a href="http://tools.ietf.org/html/rfc6455#page-56">56</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-11.3">11.3</a>. Registration of New HTTP Header Fields . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-57">57</a>
-       <a href="http://tools.ietf.org/html/rfc6455#section-11.3.1">11.3.1</a>. Sec-WebSocket-Key  . . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-57">57</a>
-       <a href="http://tools.ietf.org/html/rfc6455#section-11.3.2">11.3.2</a>. Sec-WebSocket-Extensions . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-58">58</a>
-       <a href="http://tools.ietf.org/html/rfc6455#section-11.3.3">11.3.3</a>. Sec-WebSocket-Accept . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-58">58</a>
-       <a href="http://tools.ietf.org/html/rfc6455#section-11.3.4">11.3.4</a>. Sec-WebSocket-Protocol . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-59">59</a>
-       <a href="http://tools.ietf.org/html/rfc6455#section-11.3.5">11.3.5</a>. Sec-WebSocket-Version  . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-60">60</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-11.4">11.4</a>. WebSocket Extension Name Registry  . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-61">61</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-11.5">11.5</a>. WebSocket Subprotocol Name Registry  . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-61">61</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-11.6">11.6</a>. WebSocket Version Number Registry  . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-62">62</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-11.7">11.7</a>. WebSocket Close Code Number Registry . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-64">64</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-11.8">11.8</a>. WebSocket Opcode Registry  . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-65">65</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-11.9">11.9</a>. WebSocket Framing Header Bits Registry . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-66">66</a>
-   <a href="http://tools.ietf.org/html/rfc6455#section-12">12</a>. Using the WebSocket Protocol from Other Specifications . . . . <a href="http://tools.ietf.org/html/rfc6455#page-66">66</a>
-   <a href="http://tools.ietf.org/html/rfc6455#section-13">13</a>. Acknowledgements . . . . . . . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-67">67</a>
-   <a href="http://tools.ietf.org/html/rfc6455#section-14">14</a>. References . . . . . . . . . . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-68">68</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-14.1">14.1</a>. Normative References . . . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-68">68</a>
-     <a href="http://tools.ietf.org/html/rfc6455#section-14.2">14.2</a>. Informative References . . . . . . . . . . . . . . . . . . <a href="http://tools.ietf.org/html/rfc6455#page-69">69</a>
+       <a href="#section-7.1.6">7.1.6</a>.  The WebSocket Connection Close Reason  . . . . . . . . <a href="#page-43">43</a>
+       <a href="#section-7.1.7">7.1.7</a>.  Fail the WebSocket Connection  . . . . . . . . . . . . <a href="#page-43">43</a>
+     <a href="#section-7.2">7.2</a>.  Abnormal Closures  . . . . . . . . . . . . . . . . . . . . <a href="#page-44">44</a>
+       <a href="#section-7.2.1">7.2.1</a>.  Client-Initiated Closure . . . . . . . . . . . . . . . <a href="#page-44">44</a>
+       <a href="#section-7.2.2">7.2.2</a>.  Server-Initiated Closure . . . . . . . . . . . . . . . <a href="#page-44">44</a>
+       <a href="#section-7.2.3">7.2.3</a>.  Recovering from Abnormal Closure . . . . . . . . . . . <a href="#page-44">44</a>
+     <a href="#section-7.3">7.3</a>.  Normal Closure of Connections  . . . . . . . . . . . . . . <a href="#page-45">45</a>
+     <a href="#section-7.4">7.4</a>.  Status Codes . . . . . . . . . . . . . . . . . . . . . . . <a href="#page-45">45</a>
+       <a href="#section-7.4.1">7.4.1</a>.  Defined Status Codes . . . . . . . . . . . . . . . . . <a href="#page-45">45</a>
+       <a href="#section-7.4.2">7.4.2</a>.  Reserved Status Code Ranges  . . . . . . . . . . . . . <a href="#page-47">47</a>
+   <a href="#section-8">8</a>.  Error Handling . . . . . . . . . . . . . . . . . . . . . . . . <a href="#page-48">48</a>
+     <a href="#section-8.1">8.1</a>.  Handling Errors in UTF-8-Encoded Data  . . . . . . . . . . <a href="#page-48">48</a>
+   <a href="#section-9">9</a>.  Extensions . . . . . . . . . . . . . . . . . . . . . . . . . . <a href="#page-48">48</a>
+     <a href="#section-9.1">9.1</a>.  Negotiating Extensions . . . . . . . . . . . . . . . . . . <a href="#page-48">48</a>
+     <a href="#section-9.2">9.2</a>.  Known Extensions . . . . . . . . . . . . . . . . . . . . . <a href="#page-50">50</a>
+   <a href="#section-10">10</a>. Security Considerations  . . . . . . . . . . . . . . . . . . . <a href="#page-50">50</a>
+     <a href="#section-10.1">10.1</a>. Non-Browser Clients  . . . . . . . . . . . . . . . . . . . <a href="#page-50">50</a>
+     <a href="#section-10.2">10.2</a>. Origin Considerations  . . . . . . . . . . . . . . . . . . <a href="#page-50">50</a>
+     <a href="#section-10.3">10.3</a>. Attacks On Infrastructure (Masking)  . . . . . . . . . . . <a href="#page-51">51</a>
+     <a href="#section-10.4">10.4</a>. Implementation-Specific Limits . . . . . . . . . . . . . . <a href="#page-52">52</a>
+     <a href="#section-10.5">10.5</a>. WebSocket Client Authentication  . . . . . . . . . . . . . <a href="#page-53">53</a>
+     <a href="#section-10.6">10.6</a>. Connection Confidentiality and Integrity . . . . . . . . . <a href="#page-53">53</a>
+     <a href="#section-10.7">10.7</a>. Handling of Invalid Data . . . . . . . . . . . . . . . . . <a href="#page-53">53</a>
+     <a href="#section-10.8">10.8</a>. Use of SHA-1 by the WebSocket Handshake  . . . . . . . . . <a href="#page-54">54</a>
+   <a href="#section-11">11</a>. IANA Considerations  . . . . . . . . . . . . . . . . . . . . . <a href="#page-54">54</a>
+     <a href="#section-11.1">11.1</a>. Registration of New URI Schemes  . . . . . . . . . . . . . <a href="#page-54">54</a>
+       <a href="#section-11.1.1">11.1.1</a>. Registration of "ws" Scheme  . . . . . . . . . . . . . <a href="#page-54">54</a>
+       <a href="#section-11.1.2">11.1.2</a>. Registration of "wss" Scheme . . . . . . . . . . . . . <a href="#page-55">55</a>
+     <a href="#section-11.2">11.2</a>. Registration of the "WebSocket" HTTP Upgrade Keyword . . . <a href="#page-56">56</a>
+     <a href="#section-11.3">11.3</a>. Registration of New HTTP Header Fields . . . . . . . . . . <a href="#page-57">57</a>
+       <a href="#section-11.3.1">11.3.1</a>. Sec-WebSocket-Key  . . . . . . . . . . . . . . . . . . <a href="#page-57">57</a>
+       <a href="#section-11.3.2">11.3.2</a>. Sec-WebSocket-Extensions . . . . . . . . . . . . . . . <a href="#page-58">58</a>
+       <a href="#section-11.3.3">11.3.3</a>. Sec-WebSocket-Accept . . . . . . . . . . . . . . . . . <a href="#page-58">58</a>
+       <a href="#section-11.3.4">11.3.4</a>. Sec-WebSocket-Protocol . . . . . . . . . . . . . . . . <a href="#page-59">59</a>
+       <a href="#section-11.3.5">11.3.5</a>. Sec-WebSocket-Version  . . . . . . . . . . . . . . . . <a href="#page-60">60</a>
+     <a href="#section-11.4">11.4</a>. WebSocket Extension Name Registry  . . . . . . . . . . . . <a href="#page-61">61</a>
+     <a href="#section-11.5">11.5</a>. WebSocket Subprotocol Name Registry  . . . . . . . . . . . <a href="#page-61">61</a>
+     <a href="#section-11.6">11.6</a>. WebSocket Version Number Registry  . . . . . . . . . . . . <a href="#page-62">62</a>
+     <a href="#section-11.7">11.7</a>. WebSocket Close Code Number Registry . . . . . . . . . . . <a href="#page-64">64</a>
+     <a href="#section-11.8">11.8</a>. WebSocket Opcode Registry  . . . . . . . . . . . . . . . . <a href="#page-65">65</a>
+     <a href="#section-11.9">11.9</a>. WebSocket Framing Header Bits Registry . . . . . . . . . . <a href="#page-66">66</a>
+   <a href="#section-12">12</a>. Using the WebSocket Protocol from Other Specifications . . . . <a href="#page-66">66</a>
+   <a href="#section-13">13</a>. Acknowledgements . . . . . . . . . . . . . . . . . . . . . . . <a href="#page-67">67</a>
+   <a href="#section-14">14</a>. References . . . . . . . . . . . . . . . . . . . . . . . . . . <a href="#page-68">68</a>
+     <a href="#section-14.1">14.1</a>. Normative References . . . . . . . . . . . . . . . . . . . <a href="#page-68">68</a>
+     <a href="#section-14.2">14.2</a>. Informative References . . . . . . . . . . . . . . . . . . <a href="#page-69">69</a>
 
 
 
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                    [Page 3]</span>
-</pre><pre class="newpage"><a name="page-4" id="page-4" href="http://tools.ietf.org/html/rfc6455#page-4" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-4" id="page-4" href="#page-4" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -331,7 +331,7 @@ Table of Contents
 
    A simpler solution would be to use a single TCP connection for
    traffic in both directions.  This is what the WebSocket Protocol
-   provides.  Combined with the WebSocket API [<a href="http://tools.ietf.org/html/rfc6455#ref-WSAPI" title="&quot;The WebSocket API&quot;">WSAPI</a>], it provides an
+   provides.  Combined with the WebSocket API [<a href="#ref-WSAPI" title="&quot;The WebSocket API&quot;">WSAPI</a>], it provides an
    alternative to HTTP polling for two-way communication from a web page
    to a remote server.
 
@@ -357,7 +357,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                    [Page 4]</span>
-</pre><pre class="newpage"><a name="page-5" id="page-5" href="http://tools.ietf.org/html/rfc6455#page-5" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-5" id="page-5" href="#page-5" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -397,7 +397,7 @@ Table of Contents
 
    An unordered set of header fields comes after the leading line in
    both cases.  The meaning of these header fields is specified in
-   <a href="http://tools.ietf.org/html/rfc6455#section-4">Section 4</a> of this document.  Additional header fields may also be
+   <a href="#section-4">Section 4</a> of this document.  Additional header fields may also be
    present, such as cookies [<a href="http://tools.ietf.org/html/rfc6265" title="&quot;HTTP State Management Mechanism&quot;">RFC6265</a>].  The format and parsing of
    headers is as defined in [<a href="http://tools.ietf.org/html/rfc2616" title="&quot;Hypertext Transfer Protocol -- HTTP/1.1&quot;">RFC2616</a>].
 
@@ -413,7 +413,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                    [Page 5]</span>
-</pre><pre class="newpage"><a name="page-6" id="page-6" href="http://tools.ietf.org/html/rfc6455#page-6" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-6" id="page-6" href="#page-6" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -469,7 +469,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                    [Page 6]</span>
-</pre><pre class="newpage"><a name="page-7" id="page-7" href="http://tools.ietf.org/html/rfc6455#page-7" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-7" id="page-7" href="#page-7" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -500,7 +500,7 @@ Table of Contents
    client's WebSocket handshake, so that the server doesn't accept
    connections that are not WebSocket connections.  This prevents an
    attacker from tricking a WebSocket server by sending it carefully
-   crafted packets using XMLHttpRequest [<a href="http://tools.ietf.org/html/rfc6455#ref-XMLHttpRequest">XMLHttpRequest</a>] or a form
+   crafted packets using XMLHttpRequest [<a href="#ref-XMLHttpRequest">XMLHttpRequest</a>] or a form
    submission.
 
    To prove that the handshake was received, the server has to take two
@@ -516,7 +516,7 @@ Table of Contents
    Globally Unique Identifier (GUID, [<a href="http://tools.ietf.org/html/rfc4122" title="&quot;A Universally Unique IDentifier (UUID) URN Namespace&quot;">RFC4122</a>]) "258EAFA5-E914-47DA-
    95CA-C5AB0DC85B11" in string form, which is unlikely to be used by
    network endpoints that do not understand the WebSocket Protocol.  A
-   SHA-1 hash (160 bits) [<a href="http://tools.ietf.org/html/rfc6455#ref-FIPS.180-3">FIPS.180-3</a>], base64-encoded (see <a href="http://tools.ietf.org/html/rfc4648#section-4">Section&nbsp;4 of
+   SHA-1 hash (160 bits) [<a href="#ref-FIPS.180-3">FIPS.180-3</a>], base64-encoded (see <a href="http://tools.ietf.org/html/rfc4648#section-4">Section&nbsp;4 of
    [RFC4648]</a>), of this concatenation is then returned in the server's
    handshake.
 
@@ -525,7 +525,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                    [Page 7]</span>
-</pre><pre class="newpage"><a name="page-8" id="page-8" href="http://tools.ietf.org/html/rfc6455#page-8" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-8" id="page-8" href="#page-8" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -581,7 +581,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                    [Page 8]</span>
-</pre><pre class="newpage"><a name="page-9" id="page-9" href="http://tools.ietf.org/html/rfc6455#page-9" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-9" id="page-9" href="#page-9" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -637,7 +637,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                    [Page 9]</span>
-</pre><pre class="newpage"><a name="page-10" id="page-10" href="http://tools.ietf.org/html/rfc6455#page-10" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-10" id="page-10" href="#page-10" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -693,7 +693,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 10]</span>
-</pre><pre class="newpage"><a name="page-11" id="page-11" href="http://tools.ietf.org/html/rfc6455#page-11" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-11" id="page-11" href="#page-11" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -711,7 +711,7 @@ Table of Contents
    WebSocket client.  In particular, at the time of writing of this
    specification, fields starting with |Sec-| cannot be set by an
    attacker from a web browser using only HTML and JavaScript APIs such
-   as XMLHttpRequest [<a href="http://tools.ietf.org/html/rfc6455#ref-XMLHttpRequest">XMLHttpRequest</a>].
+   as XMLHttpRequest [<a href="#ref-XMLHttpRequest">XMLHttpRequest</a>].
 
 <span class="h3"><h3><a name="section-1.7">1.7</a>.  Relationship to TCP and HTTP</h3></span>
 
@@ -749,7 +749,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 11]</span>
-</pre><pre class="newpage"><a name="page-12" id="page-12" href="http://tools.ietf.org/html/rfc6455#page-12" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-12" id="page-12" href="#page-12" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -763,7 +763,7 @@ Table of Contents
    the selected subprotocol values in its response for the connection to
    be established.
 
-   These subprotocol names should be registered as per <a href="http://tools.ietf.org/html/rfc6455#section-11.5">Section 11.5</a>.  To
+   These subprotocol names should be registered as per <a href="#section-11.5">Section 11.5</a>.  To
    avoid potential collisions, it is recommended to use names that
    contain the ASCII version of the domain name of the subprotocol's
    originator.  For example, if Example Corporation were to create a
@@ -805,7 +805,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 12]</span>
-</pre><pre class="newpage"><a name="page-13" id="page-13" href="http://tools.ietf.org/html/rfc6455#page-13" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-13" id="page-13" href="#page-13" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -818,7 +818,7 @@ Table of Contents
 <span class="h3"><h3><a name="section-2.1">2.1</a>.  Terminology and Other Conventions</h3></span>
 
    _ASCII_ shall mean the character-encoding scheme defined in
-   [<a href="http://tools.ietf.org/html/rfc6455#ref-ANSI.X3-4.1986">ANSI.X3-4.1986</a>].
+   [<a href="#ref-ANSI.X3-4.1986">ANSI.X3-4.1986</a>].
 
    This document makes reference to UTF-8 values and uses UTF-8
    notational formats as defined in STD 63 [<a href="http://tools.ietf.org/html/rfc3629" title="&quot;UTF-8, a transformation format of ISO 10646&quot;">RFC3629</a>].
@@ -831,7 +831,7 @@ Table of Contents
    Variable values are indicated like /this/.
 
    This document references the procedure to _Fail the WebSocket
-   Connection_.  This procedure is defined in <a href="http://tools.ietf.org/html/rfc6455#section-7.1.7">Section 7.1.7</a>.
+   Connection_.  This procedure is defined in <a href="#section-7.1.7">Section 7.1.7</a>.
 
    _Converting a string to ASCII lowercase_ means replacing all
    characters in the range U+0041 to U+005A (i.e., LATIN CAPITAL LETTER
@@ -861,7 +861,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 13]</span>
-</pre><pre class="newpage"><a name="page-14" id="page-14" href="http://tools.ietf.org/html/rfc6455#page-14" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-14" id="page-14" href="#page-14" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -885,7 +885,7 @@ Table of Contents
    The URI is called "secure" (and it is said that "the secure flag is
    set") if the scheme component matches "wss" case-insensitively.
 
-   The "resource-name" (also known as /resource name/ in <a href="http://tools.ietf.org/html/rfc6455#section-4.1">Section 4.1</a>)
+   The "resource-name" (also known as /resource name/ in <a href="#section-4.1">Section 4.1</a>)
    can be constructed by concatenating the following:
 
    o  "/" if the path component is empty
@@ -909,7 +909,7 @@ Table of Contents
    and sends a handshake as defined in this section.  A connection is
    defined to initially be in a CONNECTING state.  A client will need to
    supply a /host/, /port/, /resource name/, and a /secure/ flag, which
-   are the components of a WebSocket URI as discussed in <a href="http://tools.ietf.org/html/rfc6455#section-3">Section 3</a>,
+   are the components of a WebSocket URI as discussed in <a href="#section-3">Section 3</a>,
    along with a list of /protocols/ and /extensions/ to be used.
    Additionally, if the client is a web browser, it supplies /origin/.
 
@@ -917,7 +917,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 14]</span>
-</pre><pre class="newpage"><a name="page-15" id="page-15" href="http://tools.ietf.org/html/rfc6455#page-15" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-15" id="page-15" href="#page-15" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -935,13 +935,13 @@ Table of Contents
    requirements of how the connection should be opened, what should be
    sent in the opening handshake, and how the server's response should
    be interpreted are as follows in this section.  In the following
-   text, we will use terms from <a href="http://tools.ietf.org/html/rfc6455#section-3">Section 3</a>, such as "/host/" and
+   text, we will use terms from <a href="#section-3">Section 3</a>, such as "/host/" and
    "/secure/ flag" as defined in that section.
 
    1.  The components of the WebSocket URI passed into this algorithm
        (/host/, /port/, /resource name/, and /secure/ flag) MUST be
        valid according to the specification of WebSocket URIs specified
-       in <a href="http://tools.ietf.org/html/rfc6455#section-3">Section 3</a>.  If any of the components are invalid, the client
+       in <a href="#section-3">Section 3</a>.  If any of the components are invalid, the client
        MUST _Fail the WebSocket Connection_ and abort these steps.
 
    2.  If the client already has a WebSocket connection to the remote
@@ -973,7 +973,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 15]</span>
-</pre><pre class="newpage"><a name="page-16" id="page-16" href="http://tools.ietf.org/html/rfc6455#page-16" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-16" id="page-16" href="#page-16" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -1024,12 +1024,12 @@ Table of Contents
        For the purpose of proxy autoconfiguration scripts, the URI to
        pass the function MUST be constructed from /host/, /port/,
        /resource name/, and the /secure/ flag using the definition of a
-       WebSocket URI as given in <a href="http://tools.ietf.org/html/rfc6455#section-3">Section 3</a>.
+       WebSocket URI as given in <a href="#section-3">Section 3</a>.
 
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 16]</span>
-</pre><pre class="newpage"><a name="page-17" id="page-17" href="http://tools.ietf.org/html/rfc6455#page-17" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-17" id="page-17" href="#page-17" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -1070,7 +1070,7 @@ Table of Contents
         the first line sent should be "GET /chat HTTP/1.1".
 
    3.   The "Request-URI" part of the request MUST match the /resource
-        name/ defined in <a href="http://tools.ietf.org/html/rfc6455#section-3">Section 3</a> (a relative URI) or be an absolute
+        name/ defined in <a href="#section-3">Section 3</a> (a relative URI) or be an absolute
         http/https URI that, when parsed, has a /resource name/, /host/,
         and /port/ that match the corresponding ws/wss URI.
 
@@ -1085,7 +1085,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 17]</span>
-</pre><pre class="newpage"><a name="page-18" id="page-18" href="http://tools.ietf.org/html/rfc6455#page-18" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-18" id="page-18" href="#page-18" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -1141,7 +1141,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 18]</span>
-</pre><pre class="newpage"><a name="page-19" id="page-19" href="http://tools.ietf.org/html/rfc6455#page-19" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-19" id="page-19" href="#page-19" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -1149,7 +1149,7 @@ Table of Contents
         |Sec-WebSocket-Extensions|.  If present, this value indicates
         the protocol-level extension(s) the client wishes to speak.  The
         interpretation and format of this header field is described in
-        <a href="http://tools.ietf.org/html/rfc6455#section-9.1">Section 9.1</a>.
+        <a href="#section-9.1">Section 9.1</a>.
 
    12.  The request MAY include any other header fields, for example,
         cookies [<a href="http://tools.ietf.org/html/rfc6265" title="&quot;HTTP State Management Mechanism&quot;">RFC6265</a>] and/or authentication-related header fields
@@ -1191,13 +1191,13 @@ Table of Contents
        indicated an extension not requested by the client), the client
        MUST _Fail the WebSocket Connection_.  (The parsing of this
        header field to determine which extensions are requested is
-       discussed in <a href="http://tools.ietf.org/html/rfc6455#section-9.1">Section 9.1</a>.)
+       discussed in <a href="#section-9.1">Section 9.1</a>.)
 
 
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 19]</span>
-</pre><pre class="newpage"><a name="page-20" id="page-20" href="http://tools.ietf.org/html/rfc6455#page-20" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-20" id="page-20" href="#page-20" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -1208,7 +1208,7 @@ Table of Contents
        the WebSocket Connection_.
 
    If the server's response does not conform to the requirements for the
-   server's handshake as defined in this section and in <a href="http://tools.ietf.org/html/rfc6455#section-4.2.2">Section 4.2.2</a>,
+   server's handshake as defined in this section and in <a href="#section-4.2.2">Section 4.2.2</a>,
    the client MUST _Fail the WebSocket Connection_.
 
    Please note that according to [<a href="http://tools.ietf.org/html/rfc2616" title="&quot;Hypertext Transfer Protocol -- HTTP/1.1&quot;">RFC2616</a>], all header field names in
@@ -1253,7 +1253,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 20]</span>
-</pre><pre class="newpage"><a name="page-21" id="page-21" href="http://tools.ietf.org/html/rfc6455#page-21" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-21" id="page-21" href="#page-21" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -1275,7 +1275,7 @@ Table of Contents
 
    1.   An HTTP/1.1 or higher GET request, including a "Request-URI"
         [<a href="http://tools.ietf.org/html/rfc2616" title="&quot;Hypertext Transfer Protocol -- HTTP/1.1&quot;">RFC2616</a>] that should be interpreted as a /resource name/
-        defined in <a href="http://tools.ietf.org/html/rfc6455#section-3">Section 3</a> (or an absolute HTTP/HTTPS URI containing
+        defined in <a href="#section-3">Section 3</a> (or an absolute HTTP/HTTPS URI containing
         the /resource name/).
 
    2.   A |Host| header field containing the server's authority.
@@ -1304,12 +1304,12 @@ Table of Contents
    9.   Optionally, a |Sec-WebSocket-Extensions| header field, with a
         list of values indicating which extensions the client would like
         to speak.  The interpretation of this header field is discussed
-        in <a href="http://tools.ietf.org/html/rfc6455#section-9.1">Section 9.1</a>.
+        in <a href="#section-9.1">Section 9.1</a>.
 
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 21]</span>
-</pre><pre class="newpage"><a name="page-22" id="page-22" href="http://tools.ietf.org/html/rfc6455#page-22" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-22" id="page-22" href="#page-22" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -1352,7 +1352,7 @@ Table of Contents
           connection, it MUST return an appropriate HTTP error code
           (e.g., 403 Forbidden) and abort the WebSocket handshake
           described in this section.  For more detail, refer to
-          <a href="http://tools.ietf.org/html/rfc6455#section-10">Section 10</a>.
+          <a href="#section-10">Section 10</a>.
 
        /key/
           The |Sec-WebSocket-Key| header field in the client's handshake
@@ -1365,7 +1365,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 22]</span>
-</pre><pre class="newpage"><a name="page-23" id="page-23" href="http://tools.ietf.org/html/rfc6455#page-23" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-23" id="page-23" href="#page-23" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -1421,13 +1421,13 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 23]</span>
-</pre><pre class="newpage"><a name="page-24" id="page-24" href="http://tools.ietf.org/html/rfc6455#page-24" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-24" id="page-24" href="#page-24" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
           purposes.  Extensions not listed by the client MUST NOT be
           listed.  The method by which these values should be selected
-          and interpreted is discussed in <a href="http://tools.ietf.org/html/rfc6455#section-9.1">Section 9.1</a>.
+          and interpreted is discussed in <a href="#section-9.1">Section 9.1</a>.
 
    5.  If the server chooses to accept the incoming connection, it MUST
        reply with a valid HTTP response indicating the following.
@@ -1443,7 +1443,7 @@ Table of Contents
 
        4.  A |Sec-WebSocket-Accept| header field.  The value of this
            header field is constructed by concatenating /key/, defined
-           above in step 4 in <a href="http://tools.ietf.org/html/rfc6455#section-4.2.2">Section 4.2.2</a>, with the string "258EAFA5-
+           above in step 4 in <a href="#section-4.2.2">Section 4.2.2</a>, with the string "258EAFA5-
            E914-47DA-95CA-C5AB0DC85B11", taking the SHA-1 hash of this
            concatenated value to obtain a 20-byte value and base64-
            encoding (see <a href="http://tools.ietf.org/html/rfc4648#section-4">Section&nbsp;4 of [RFC4648]</a>) this 20-byte hash.
@@ -1471,18 +1471,18 @@ Table of Contents
    |Sec-WebSocket-Accept| header field.
 
        5.  Optionally, a |Sec-WebSocket-Protocol| header field, with a
-           value /subprotocol/ as defined in step 4 in <a href="http://tools.ietf.org/html/rfc6455#section-4.2.2">Section 4.2.2</a>.
+           value /subprotocol/ as defined in step 4 in <a href="#section-4.2.2">Section 4.2.2</a>.
 
 
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 24]</span>
-</pre><pre class="newpage"><a name="page-25" id="page-25" href="http://tools.ietf.org/html/rfc6455#page-25" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-25" id="page-25" href="#page-25" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
        6.  Optionally, a |Sec-WebSocket-Extensions| header field, with a
-           value /extensions/ as defined in step 4 in <a href="http://tools.ietf.org/html/rfc6455#section-4.2.2">Section 4.2.2</a>.  If
+           value /extensions/ as defined in step 4 in <a href="#section-4.2.2">Section 4.2.2</a>.  If
            multiple extensions are to be used, they can all be listed in
            a single |Sec-WebSocket-Extensions| header field or split
            between multiple instances of the |Sec-WebSocket-Extensions|
@@ -1533,7 +1533,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 25]</span>
-</pre><pre class="newpage"><a name="page-26" id="page-26" href="http://tools.ietf.org/html/rfc6455#page-26" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-26" id="page-26" href="#page-26" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -1589,7 +1589,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 26]</span>
-</pre><pre class="newpage"><a name="page-27" id="page-27" href="http://tools.ietf.org/html/rfc6455#page-27" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-27" id="page-27" href="#page-27" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -1622,16 +1622,16 @@ Table of Contents
    In the WebSocket Protocol, data is transmitted using a sequence of
    frames.  To avoid confusing network intermediaries (such as
    intercepting proxies) and for security reasons that are further
-   discussed in <a href="http://tools.ietf.org/html/rfc6455#section-10.3">Section 10.3</a>, a client MUST mask all frames that it
-   sends to the server (see <a href="http://tools.ietf.org/html/rfc6455#section-5.3">Section 5.3</a> for further details).  (Note
+   discussed in <a href="#section-10.3">Section 10.3</a>, a client MUST mask all frames that it
+   sends to the server (see <a href="#section-5.3">Section 5.3</a> for further details).  (Note
    that masking is done whether or not the WebSocket Protocol is running
    over TLS.)  The server MUST close the connection upon receiving a
    frame that is not masked.  In this case, a server MAY send a Close
    frame with a status code of 1002 (protocol error) as defined in
-   <a href="http://tools.ietf.org/html/rfc6455#section-7.4.1">Section 7.4.1</a>.  A server MUST NOT mask any frames that it sends to
+   <a href="#section-7.4.1">Section 7.4.1</a>.  A server MUST NOT mask any frames that it sends to
    the client.  A client MUST close a connection if it detects a masked
    frame.  In this case, it MAY use the status code 1002 (protocol
-   error) as defined in <a href="http://tools.ietf.org/html/rfc6455#section-7.4.1">Section 7.4.1</a>.  (These rules might be relaxed in
+   error) as defined in <a href="#section-7.4.1">Section 7.4.1</a>.  (These rules might be relaxed in
    a future specification.)
 
    The base framing protocol defines a frame type with an opcode, a
@@ -1645,7 +1645,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 27]</span>
-</pre><pre class="newpage"><a name="page-28" id="page-28" href="http://tools.ietf.org/html/rfc6455#page-28" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-28" id="page-28" href="#page-28" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -1701,7 +1701,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 28]</span>
-</pre><pre class="newpage"><a name="page-29" id="page-29" href="http://tools.ietf.org/html/rfc6455#page-29" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-29" id="page-29" href="#page-29" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -1731,7 +1731,7 @@ Table of Contents
 
       Defines whether the "Payload data" is masked.  If set to 1, a
       masking key is present in masking-key, and this is used to unmask
-      the "Payload data" as per <a href="http://tools.ietf.org/html/rfc6455#section-5.3">Section 5.3</a>.  All frames sent from
+      the "Payload data" as per <a href="#section-5.3">Section 5.3</a>.  All frames sent from
       client to server have this bit set to 1.
 
    Payload length:  7 bits, 7+16 bits, or 7+64 bits
@@ -1757,7 +1757,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 29]</span>
-</pre><pre class="newpage"><a name="page-30" id="page-30" href="http://tools.ietf.org/html/rfc6455#page-30" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-30" id="page-30" href="#page-30" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -1766,7 +1766,7 @@ Table of Contents
       All frames sent from the client to the server are masked by a
       32-bit value that is contained within the frame.  This field is
       present if the mask bit is set to 1 and is absent if the mask bit
-      is set to 0.  See <a href="http://tools.ietf.org/html/rfc6455#section-5.3">Section 5.3</a> for further information on client-
+      is set to 0.  See <a href="#section-5.3">Section 5.3</a> for further information on client-
       to-server masking.
 
    Payload data:  (x+y) bytes
@@ -1813,7 +1813,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 30]</span>
-</pre><pre class="newpage"><a name="page-31" id="page-31" href="http://tools.ietf.org/html/rfc6455#page-31" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-31" id="page-31" href="#page-31" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -1869,7 +1869,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 31]</span>
-</pre><pre class="newpage"><a name="page-32" id="page-32" href="http://tools.ietf.org/html/rfc6455#page-32" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-32" id="page-32" href="#page-32" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -1918,19 +1918,19 @@ Table of Contents
 <span class="h3"><h3><a name="section-5.3">5.3</a>.  Client-to-Server Masking</h3></span>
 
    A masked frame MUST have the field frame-masked set to 1, as defined
-   in <a href="http://tools.ietf.org/html/rfc6455#section-5.2">Section 5.2</a>.
+   in <a href="#section-5.2">Section 5.2</a>.
 
 
 
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 32]</span>
-</pre><pre class="newpage"><a name="page-33" id="page-33" href="http://tools.ietf.org/html/rfc6455#page-33" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-33" id="page-33" href="#page-33" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
    The masking key is contained completely within the frame, as defined
-   in <a href="http://tools.ietf.org/html/rfc6455#section-5.2">Section 5.2</a> as frame-masking-key.  It is used to mask the "Payload
+   in <a href="#section-5.2">Section 5.2</a> as frame-masking-key.  It is used to mask the "Payload
    data" defined in the same section as frame-payload-data, which
    includes "Extension data" and "Application data".
 
@@ -1981,7 +1981,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 33]</span>
-</pre><pre class="newpage"><a name="page-34" id="page-34" href="http://tools.ietf.org/html/rfc6455#page-34" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-34" id="page-34" href="#page-34" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -2001,7 +2001,7 @@ Table of Contents
    The following rules apply to fragmentation:
 
    o  An unfragmented message consists of a single frame with the FIN
-      bit set (<a href="http://tools.ietf.org/html/rfc6455#section-5.2">Section 5.2</a>) and an opcode other than 0.
+      bit set (<a href="#section-5.2">Section 5.2</a>) and an opcode other than 0.
 
    o  A fragmented message consists of a single frame with the FIN bit
       clear and an opcode other than 0, followed by zero or more frames
@@ -2024,7 +2024,7 @@ Table of Contents
       and the third fragment would have an opcode of 0x0 and a FIN bit
       that is set.
 
-   o  Control frames (see <a href="http://tools.ietf.org/html/rfc6455#section-5.5">Section 5.5</a>) MAY be injected in the middle of
+   o  Control frames (see <a href="#section-5.5">Section 5.5</a>) MAY be injected in the middle of
       a fragmented message.  Control frames themselves MUST NOT be
       fragmented.
 
@@ -2037,7 +2037,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 34]</span>
-</pre><pre class="newpage"><a name="page-35" id="page-35" href="http://tools.ietf.org/html/rfc6455#page-35" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-35" id="page-35" href="#page-35" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -2093,7 +2093,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 35]</span>
-</pre><pre class="newpage"><a name="page-36" id="page-36" href="http://tools.ietf.org/html/rfc6455#page-36" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-36" id="page-36" href="#page-36" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -2121,7 +2121,7 @@ Table of Contents
    endpoint having received a frame that does not conform to the format
    expected by the endpoint.  If there is a body, the first two bytes of
    the body MUST be a 2-byte unsigned integer (in network byte order)
-   representing a status code with value /code/ defined in <a href="http://tools.ietf.org/html/rfc6455#section-7.4">Section 7.4</a>.
+   representing a status code with value /code/ defined in <a href="#section-7.4">Section 7.4</a>.
    Following the 2-byte integer, the body MAY contain UTF-8-encoded data
    with value /reason/, the interpretation of which is not defined by
    this specification.  This data is not necessarily human readable but
@@ -2130,7 +2130,7 @@ Table of Contents
    be human readable, clients MUST NOT show it to end users.
 
    Close frames sent from client to server must be masked as per
-   <a href="http://tools.ietf.org/html/rfc6455#section-5.3">Section 5.3</a>.
+   <a href="#section-5.3">Section 5.3</a>.
 
    The application MUST NOT send any more data frames after sending a
    Close frame.
@@ -2149,7 +2149,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 36]</span>
-</pre><pre class="newpage"><a name="page-37" id="page-37" href="http://tools.ietf.org/html/rfc6455#page-37" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-37" id="page-37" href="#page-37" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -2175,7 +2175,7 @@ Table of Contents
    Upon receipt of a Ping frame, an endpoint MUST send a Pong frame in
    response, unless it already received a Close frame.  It SHOULD
    respond with Pong frame as soon as is practical.  Pong frames are
-   discussed in <a href="http://tools.ietf.org/html/rfc6455#section-5.5.3">Section 5.5.3</a>.
+   discussed in <a href="#section-5.5.3">Section 5.5.3</a>.
 
    An endpoint MAY send a Ping frame any time after the connection is
    established and before the connection is closed.
@@ -2187,7 +2187,7 @@ Table of Contents
 
    The Pong frame contains an opcode of 0xA.
 
-   <a href="http://tools.ietf.org/html/rfc6455#section-5.5.2">Section 5.5.2</a> details requirements that apply to both Ping and Pong
+   <a href="#section-5.5.2">Section 5.5.2</a> details requirements that apply to both Ping and Pong
    frames.
 
    A Pong frame sent in response to a Ping frame must have identical
@@ -2205,7 +2205,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 37]</span>
-</pre><pre class="newpage"><a name="page-38" id="page-38" href="http://tools.ietf.org/html/rfc6455#page-38" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-38" id="page-38" href="#page-38" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -2230,7 +2230,7 @@ Table of Contents
       particular text frame might include a partial UTF-8 sequence;
       however, the whole message MUST contain valid UTF-8.  Invalid
       UTF-8 in reassembled messages is handled as described in
-      <a href="http://tools.ietf.org/html/rfc6455#section-8.1">Section 8.1</a>.
+      <a href="#section-8.1">Section 8.1</a>.
 
    Binary
 
@@ -2261,7 +2261,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 38]</span>
-</pre><pre class="newpage"><a name="page-39" id="page-39" href="http://tools.ietf.org/html/rfc6455#page-39" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-39" id="page-39" href="#page-39" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -2290,7 +2290,7 @@ Table of Contents
    0xB through 0xF, the "Extension data" field, and the frame-rsv1,
    frame-rsv2, and frame-rsv3 bits of the frame header for use by
    extensions.  The negotiation of extensions is discussed in further
-   detail in <a href="http://tools.ietf.org/html/rfc6455#section-9.1">Section 9.1</a>.  Below are some anticipated uses of
+   detail in <a href="#section-9.1">Section 9.1</a>.  Below are some anticipated uses of
    extensions.  This list is neither complete nor prescriptive.
 
    o  "Extension data" may be placed in the "Payload data" before the
@@ -2317,34 +2317,34 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 39]</span>
-</pre><pre class="newpage"><a name="page-40" id="page-40" href="http://tools.ietf.org/html/rfc6455#page-40" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-40" id="page-40" href="#page-40" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
    1.  The endpoint MUST ensure the WebSocket connection is in the OPEN
-       state (cf. Sections <a href="http://tools.ietf.org/html/rfc6455#section-4.1">4.1</a> and <a href="http://tools.ietf.org/html/rfc6455#section-4.2.2">4.2.2</a>.)  If at any point the state of
+       state (cf. Sections <a href="#section-4.1">4.1</a> and <a href="#section-4.2.2">4.2.2</a>.)  If at any point the state of
        the WebSocket connection changes, the endpoint MUST abort the
        following steps.
 
    2.  An endpoint MUST encapsulate the /data/ in a WebSocket frame as
-       defined in <a href="http://tools.ietf.org/html/rfc6455#section-5.2">Section 5.2</a>.  If the data to be sent is large or if
+       defined in <a href="#section-5.2">Section 5.2</a>.  If the data to be sent is large or if
        the data is not available in its entirety at the point the
        endpoint wishes to begin sending the data, the endpoint MAY
        alternately encapsulate the data in a series of frames as defined
-       in <a href="http://tools.ietf.org/html/rfc6455#section-5.4">Section 5.4</a>.
+       in <a href="#section-5.4">Section 5.4</a>.
 
    3.  The opcode (frame-opcode) of the first frame containing the data
-       MUST be set to the appropriate value from <a href="http://tools.ietf.org/html/rfc6455#section-5.2">Section 5.2</a> for data
+       MUST be set to the appropriate value from <a href="#section-5.2">Section 5.2</a> for data
        that is to be interpreted by the recipient as text or binary
        data.
 
    4.  The FIN bit (frame-fin) of the last frame containing the data
-       MUST be set to 1 as defined in <a href="http://tools.ietf.org/html/rfc6455#section-5.2">Section 5.2</a>.
+       MUST be set to 1 as defined in <a href="#section-5.2">Section 5.2</a>.
 
    5.  If the data is being sent by the client, the frame(s) MUST be
-       masked as defined in <a href="http://tools.ietf.org/html/rfc6455#section-5.3">Section 5.3</a>.
+       masked as defined in <a href="#section-5.3">Section 5.3</a>.
 
-   6.  If any extensions (<a href="http://tools.ietf.org/html/rfc6455#section-9">Section 9</a>) have been negotiated for the
+   6.  If any extensions (<a href="#section-9">Section 9</a>) have been negotiated for the
        WebSocket connection, additional considerations may apply as per
        the definition of those extensions.
 
@@ -2355,13 +2355,13 @@ Table of Contents
 
    To receive WebSocket data, an endpoint listens on the underlying
    network connection.  Incoming data MUST be parsed as WebSocket frames
-   as defined in <a href="http://tools.ietf.org/html/rfc6455#section-5.2">Section 5.2</a>.  If a control frame (<a href="http://tools.ietf.org/html/rfc6455#section-5.5">Section 5.5</a>) is
-   received, the frame MUST be handled as defined by <a href="http://tools.ietf.org/html/rfc6455#section-5.5">Section 5.5</a>.  Upon
-   receiving a data frame (<a href="http://tools.ietf.org/html/rfc6455#section-5.6">Section 5.6</a>), the endpoint MUST note the
+   as defined in <a href="#section-5.2">Section 5.2</a>.  If a control frame (<a href="#section-5.5">Section 5.5</a>) is
+   received, the frame MUST be handled as defined by <a href="#section-5.5">Section 5.5</a>.  Upon
+   receiving a data frame (<a href="#section-5.6">Section 5.6</a>), the endpoint MUST note the
    /type/ of the data as defined by the opcode (frame-opcode) from
-   <a href="http://tools.ietf.org/html/rfc6455#section-5.2">Section 5.2</a>.  The "Application data" from this frame is defined as
+   <a href="#section-5.2">Section 5.2</a>.  The "Application data" from this frame is defined as
    the /data/ of the message.  If the frame comprises an unfragmented
-   message (<a href="http://tools.ietf.org/html/rfc6455#section-5.4">Section 5.4</a>), it is said that _A WebSocket Message Has Been
+   message (<a href="#section-5.4">Section 5.4</a>), it is said that _A WebSocket Message Has Been
    Received_ with type /type/ and data /data/.  If the frame is part of
    a fragmented message, the "Application data" of the subsequent data
    frames is concatenated to form the /data/.  When the last fragment is
@@ -2373,7 +2373,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 40]</span>
-</pre><pre class="newpage"><a name="page-41" id="page-41" href="http://tools.ietf.org/html/rfc6455#page-41" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-41" id="page-41" href="#page-41" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -2381,14 +2381,14 @@ Table of Contents
    Subsequent data frames MUST be interpreted as belonging to a new
    WebSocket message.
 
-   Extensions (<a href="http://tools.ietf.org/html/rfc6455#section-9">Section 9</a>) MAY change the semantics of how data is read,
+   Extensions (<a href="#section-9">Section 9</a>) MAY change the semantics of how data is read,
    specifically including what comprises a message boundary.
    Extensions, in addition to adding "Extension data" before the
    "Application data" in a payload, MAY also modify the "Application
    data" (such as by compressing it).
 
    A server MUST remove masking for data frames received from a client
-   as described in <a href="http://tools.ietf.org/html/rfc6455#section-5.3">Section 5.3</a>.
+   as described in <a href="#section-5.3">Section 5.3</a>.
 
 <span class="h2"><h2><a name="section-7">7</a>.  Closing the Connection</h2></span>
 
@@ -2429,19 +2429,19 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 41]</span>
-</pre><pre class="newpage"><a name="page-42" id="page-42" href="http://tools.ietf.org/html/rfc6455#page-42" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-42" id="page-42" href="#page-42" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
 <span class="h4"><h4><a name="section-7.1.2">7.1.2</a>.  Start the WebSocket Closing Handshake</h4></span>
 
    To _Start the WebSocket Closing Handshake_ with a status code
-   (<a href="http://tools.ietf.org/html/rfc6455#section-7.4">Section 7.4</a>) /code/ and an optional close reason (<a href="http://tools.ietf.org/html/rfc6455#section-7.1.6">Section 7.1.6</a>)
+   (<a href="#section-7.4">Section 7.4</a>) /code/ and an optional close reason (<a href="#section-7.1.6">Section 7.1.6</a>)
    /reason/, an endpoint MUST send a Close control frame, as described
    in <a href="./RFC 6455 - The WebSocket Protocol_files/RFC 6455 - The WebSocket Protocol.html">Section 5.5.1</a>, whose status code is set to /code/ and whose close
    reason is set to /reason/.  Once an endpoint has both sent and
    received a Close control frame, that endpoint SHOULD _Close the
-   WebSocket Connection_ as defined in <a href="http://tools.ietf.org/html/rfc6455#section-7.1.1">Section 7.1.1</a>.
+   WebSocket Connection_ as defined in <a href="#section-7.1.1">Section 7.1.1</a>.
 
 <span class="h4"><h4><a name="section-7.1.3">7.1.3</a>.  The WebSocket Closing Handshake is Started</h4></span>
 
@@ -2462,11 +2462,11 @@ Table of Contents
 
 <span class="h4"><h4><a name="section-7.1.5">7.1.5</a>.  The WebSocket Connection Close Code</h4></span>
 
-   As defined in Sections <a href="./RFC 6455 - The WebSocket Protocol_files/RFC 6455 - The WebSocket Protocol.html">5.5.1</a> and <a href="http://tools.ietf.org/html/rfc6455#section-7.4">7.4</a>, a Close control frame may
+   As defined in Sections <a href="./RFC 6455 - The WebSocket Protocol_files/RFC 6455 - The WebSocket Protocol.html">5.5.1</a> and <a href="#section-7.4">7.4</a>, a Close control frame may
    contain a status code indicating a reason for closure.  A closing of
    the WebSocket connection may be initiated by either endpoint,
    potentially simultaneously. _The WebSocket Connection Close Code_ is
-   defined as the status code (<a href="http://tools.ietf.org/html/rfc6455#section-7.4">Section 7.4</a>) contained in the first Close
+   defined as the status code (<a href="#section-7.4">Section 7.4</a>) contained in the first Close
    control frame received by the application implementing this protocol.
    If this Close control frame contains no status code, _The WebSocket
    Connection Close Code_ is considered to be 1005.  If _The WebSocket
@@ -2485,7 +2485,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 42]</span>
-</pre><pre class="newpage"><a name="page-43" id="page-43" href="http://tools.ietf.org/html/rfc6455#page-43" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-43" id="page-43" href="#page-43" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -2498,19 +2498,19 @@ Table of Contents
 
 <span class="h4"><h4><a name="section-7.1.6">7.1.6</a>.  The WebSocket Connection Close Reason</h4></span>
 
-   As defined in Sections <a href="./RFC 6455 - The WebSocket Protocol_files/RFC 6455 - The WebSocket Protocol.html">5.5.1</a> and <a href="http://tools.ietf.org/html/rfc6455#section-7.4">7.4</a>, a Close control frame may
+   As defined in Sections <a href="./RFC 6455 - The WebSocket Protocol_files/RFC 6455 - The WebSocket Protocol.html">5.5.1</a> and <a href="#section-7.4">7.4</a>, a Close control frame may
    contain a status code indicating a reason for closure, followed by
    UTF-8-encoded data, the interpretation of said data being left to the
    endpoints and not defined by this protocol.  A closing of the
    WebSocket connection may be initiated by either endpoint, potentially
    simultaneously. _The WebSocket Connection Close Reason_ is defined as
-   the UTF-8-encoded data following the status code (<a href="http://tools.ietf.org/html/rfc6455#section-7.4">Section 7.4</a>)
+   the UTF-8-encoded data following the status code (<a href="#section-7.4">Section 7.4</a>)
    contained in the first Close control frame received by the
    application implementing this protocol.  If there is no such data in
    the Close control frame, _The WebSocket Connection Close Reason_ is
    the empty string.
 
-   NOTE: Following the same logic as noted in <a href="http://tools.ietf.org/html/rfc6455#section-7.1.5">Section 7.1.5</a>, two
+   NOTE: Following the same logic as noted in <a href="#section-7.1.5">Section 7.1.5</a>, two
    endpoints may not agree on _The WebSocket Connection Close Reason_.
 
 <span class="h4"><h4><a name="section-7.1.7">7.1.7</a>.  Fail the WebSocket Connection</h4></span>
@@ -2525,7 +2525,7 @@ Table of Contents
    If _The WebSocket Connection is Established_ prior to the point where
    the endpoint is required to _Fail the WebSocket Connection_, the
    endpoint SHOULD send a Close frame with an appropriate status code
-   (<a href="http://tools.ietf.org/html/rfc6455#section-7.4">Section 7.4</a>) before proceeding to _Close the WebSocket Connection_.
+   (<a href="#section-7.4">Section 7.4</a>) before proceeding to _Close the WebSocket Connection_.
    An endpoint MAY omit sending a Close frame if it believes the other
    side is unlikely to be able to receive and process the Close frame,
    due to the nature of the error that led the WebSocket connection to
@@ -2541,7 +2541,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 43]</span>
-</pre><pre class="newpage"><a name="page-44" id="page-44" href="http://tools.ietf.org/html/rfc6455#page-44" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-44" id="page-44" href="#page-44" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -2552,7 +2552,7 @@ Table of Contents
    Certain algorithms, in particular during the opening handshake,
    require the client to _Fail the WebSocket Connection_.  To do so, the
    client MUST _Fail the WebSocket Connection_ as defined in
-   <a href="http://tools.ietf.org/html/rfc6455#section-7.1.7">Section 7.1.7</a>.
+   <a href="#section-7.1.7">Section 7.1.7</a>.
 
    If at any point the underlying transport layer connection is
    unexpectedly lost, the client MUST _Fail the WebSocket Connection_.
@@ -2565,7 +2565,7 @@ Table of Contents
 
    Certain algorithms require or recommend that the server _Abort the
    WebSocket Connection_ during the opening handshake.  To do so, the
-   server MUST simply _Close the WebSocket Connection_ (<a href="http://tools.ietf.org/html/rfc6455#section-7.1.1">Section 7.1.1</a>).
+   server MUST simply _Close the WebSocket Connection_ (<a href="#section-7.1.1">Section 7.1.1</a>).
 
 <span class="h4"><h4><a name="section-7.2.3">7.2.3</a>.  Recovering from Abnormal Closure</h4></span>
 
@@ -2597,7 +2597,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 44]</span>
-</pre><pre class="newpage"><a name="page-45" id="page-45" href="http://tools.ietf.org/html/rfc6455#page-45" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-45" id="page-45" href="#page-45" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -2606,7 +2606,7 @@ Table of Contents
    Servers MAY close the WebSocket connection whenever desired.  Clients
    SHOULD NOT close the WebSocket connection arbitrarily.  In either
    case, an endpoint initiates a closure by following the procedures to
-   _Start the WebSocket Closing Handshake_ (<a href="http://tools.ietf.org/html/rfc6455#section-7.1.2">Section 7.1.2</a>).
+   _Start the WebSocket Closing Handshake_ (<a href="#section-7.1.2">Section 7.1.2</a>).
 
 <span class="h3"><h3><a name="section-7.4">7.4</a>.  Status Codes</h3></span>
 
@@ -2653,7 +2653,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 45]</span>
-</pre><pre class="newpage"><a name="page-46" id="page-46" href="http://tools.ietf.org/html/rfc6455#page-46" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-46" id="page-46" href="#page-46" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -2709,7 +2709,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 46]</span>
-</pre><pre class="newpage"><a name="page-47" id="page-47" href="http://tools.ietf.org/html/rfc6455#page-47" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-47" id="page-47" href="#page-47" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -2765,7 +2765,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 47]</span>
-</pre><pre class="newpage"><a name="page-48" id="page-48" href="http://tools.ietf.org/html/rfc6455#page-48" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-48" id="page-48" href="#page-48" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -2821,7 +2821,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 48]</span>
-</pre><pre class="newpage"><a name="page-49" id="page-49" href="http://tools.ietf.org/html/rfc6455#page-49" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-49" id="page-49" href="#page-49" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -2837,7 +2837,7 @@ Table of Contents
          Sec-WebSocket-Extensions: foo, bar; baz=2
 
    Any extension-token used MUST be a registered token (see
-   <a href="http://tools.ietf.org/html/rfc6455#section-11.4">Section 11.4</a>).  The parameters supplied with any given extension MUST
+   <a href="#section-11.4">Section 11.4</a>).  The parameters supplied with any given extension MUST
    be defined for that extension.  Note that the client is only offering
    to use any advertised extensions and MUST NOT use them unless the
    server indicates that it wishes to use the extension.
@@ -2877,7 +2877,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 49]</span>
-</pre><pre class="newpage"><a name="page-50" id="page-50" href="http://tools.ietf.org/html/rfc6455#page-50" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-50" id="page-50" href="#page-50" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -2901,7 +2901,7 @@ Table of Contents
 
    The WebSocket Protocol protects against malicious JavaScript running
    inside a trusted application such as a web browser, for example, by
-   checking of the |Origin| header field (see below).  See <a href="http://tools.ietf.org/html/rfc6455#section-1.6">Section 1.6</a>
+   checking of the |Origin| header field (see below).  See <a href="#section-1.6">Section 1.6</a>
    for additional details.  Such assumptions don't hold true in the case
    of a more-capable client.
 
@@ -2933,7 +2933,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 50]</span>
-</pre><pre class="newpage"><a name="page-51" id="page-51" href="http://tools.ietf.org/html/rfc6455#page-51" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-51" id="page-51" href="#page-51" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -2951,7 +2951,7 @@ Table of Contents
 
    As this protocol was being developed, an experiment was conducted to
    demonstrate a class of attacks on proxies that led to the poisoning
-   of caching proxies deployed in the wild [<a href="http://tools.ietf.org/html/rfc6455#ref-TALKING" title="&quot;Talking to Yourself for Fun and Profit&quot;">TALKING</a>].  The general form
+   of caching proxies deployed in the wild [<a href="#ref-TALKING" title="&quot;Talking to Yourself for Fun and Profit&quot;">TALKING</a>].  The general form
    of the attack was to establish a connection to a server under the
    "attacker's" control, perform an UPGRADE on the HTTP connection
    similar to what the WebSocket Protocol does to establish a
@@ -2989,7 +2989,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 51]</span>
-</pre><pre class="newpage"><a name="page-52" id="page-52" href="http://tools.ietf.org/html/rfc6455#page-52" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-52" id="page-52" href="#page-52" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -3045,7 +3045,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 52]</span>
-</pre><pre class="newpage"><a name="page-53" id="page-53" href="http://tools.ietf.org/html/rfc6455#page-53" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-53" id="page-53" href="#page-53" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -3070,9 +3070,9 @@ Table of Contents
    provide connection confidentiality.  To achieve reasonable levels of
    protection, clients should use only Strong TLS algorithms.  "Web
    Security Context: User Interface Guidelines"
-   [<a href="http://tools.ietf.org/html/rfc6455#ref-W3C.REC-wsc-ui-20100812">W3C.REC-wsc-ui-20100812</a>] discusses what constitutes Strong TLS
-   algorithms.  [<a href="http://tools.ietf.org/html/rfc5246" title="&quot;The Transport Layer Security (TLS) Protocol Version 1.2&quot;">RFC5246</a>] provides additional guidance in <a href="http://tools.ietf.org/html/rfc6455#appendix-A.5">Appendix A.5</a>
-   and <a href="http://tools.ietf.org/html/rfc6455#appendix-D.3">Appendix D.3</a>.
+   [<a href="#ref-W3C.REC-wsc-ui-20100812">W3C.REC-wsc-ui-20100812</a>] discusses what constitutes Strong TLS
+   algorithms.  [<a href="http://tools.ietf.org/html/rfc5246" title="&quot;The Transport Layer Security (TLS) Protocol Version 1.2&quot;">RFC5246</a>] provides additional guidance in <a href="#appendix-A.5">Appendix A.5</a>
+   and <a href="#appendix-D.3">Appendix D.3</a>.
 
 <span class="h3"><h3><a name="section-10.7">10.7</a>.  Handling of Invalid Data</h3></span>
 
@@ -3084,7 +3084,7 @@ Table of Contents
    (e.g., incorrect path or origin in the client request), the endpoint
    MAY drop the TCP connection.  If the invalid data was received after
    a successful WebSocket handshake, the endpoint SHOULD send a Close
-   frame with an appropriate status code (<a href="http://tools.ietf.org/html/rfc6455#section-7.4">Section 7.4</a>) before proceeding
+   frame with an appropriate status code (<a href="#section-7.4">Section 7.4</a>) before proceeding
    to _Close the WebSocket Connection_.  Use of a Close frame with an
    appropriate status code can help in diagnosing the problem.  If the
    invalid data is sent during the WebSocket handshake, the server
@@ -3101,7 +3101,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 53]</span>
-</pre><pre class="newpage"><a name="page-54" id="page-54" href="http://tools.ietf.org/html/rfc6455#page-54" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-54" id="page-54" href="#page-54" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -3157,7 +3157,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 54]</span>
-</pre><pre class="newpage"><a name="page-55" id="page-55" href="http://tools.ietf.org/html/rfc6455#page-55" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-55" id="page-55" href="#page-55" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -3213,7 +3213,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 55]</span>
-</pre><pre class="newpage"><a name="page-56" id="page-56" href="http://tools.ietf.org/html/rfc6455#page-56" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-56" id="page-56" href="#page-56" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -3226,8 +3226,8 @@ Table of Contents
       defined above MUST be converted from Unicode to ASCII as specified
       in [<a href="http://tools.ietf.org/html/rfc3987" title="&quot;Internationalized Resource Identifiers (IRIs)&quot;">RFC3987</a>] or its replacement.  For the purposes of scheme-based
       normalization IDN forms of the host component and their
-      conversions to punycode are considered equivalent (see <a href="http://tools.ietf.org/html/rfc6455#section-5.3.3">Section</a>
-      <a href="http://tools.ietf.org/html/rfc6455#section-5.3.3">5.3.3</a> of [<a href="http://tools.ietf.org/html/rfc3987" title="&quot;Internationalized Resource Identifiers (IRIs)&quot;">RFC3987</a>]).
+      conversions to punycode are considered equivalent (see <a href="#section-5.3.3">Section</a>
+      <a href="#section-5.3.3">5.3.3</a> of [<a href="http://tools.ietf.org/html/rfc3987" title="&quot;Internationalized Resource Identifiers (IRIs)&quot;">RFC3987</a>]).
 
       Characters in other components that are excluded by the syntax
       defined above MUST be converted from Unicode to ASCII by first
@@ -3269,7 +3269,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 56]</span>
-</pre><pre class="newpage"><a name="page-57" id="page-57" href="http://tools.ietf.org/html/rfc6455#page-57" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-57" id="page-57" href="#page-57" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -3325,7 +3325,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 57]</span>
-</pre><pre class="newpage"><a name="page-58" id="page-58" href="http://tools.ietf.org/html/rfc6455#page-58" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-58" id="page-58" href="#page-58" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -3381,7 +3381,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 58]</span>
-</pre><pre class="newpage"><a name="page-59" id="page-59" href="http://tools.ietf.org/html/rfc6455#page-59" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-59" id="page-59" href="#page-59" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -3437,7 +3437,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 59]</span>
-</pre><pre class="newpage"><a name="page-60" id="page-60" href="http://tools.ietf.org/html/rfc6455#page-60" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-60" id="page-60" href="#page-60" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -3493,7 +3493,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 60]</span>
-</pre><pre class="newpage"><a name="page-61" id="page-61" href="http://tools.ietf.org/html/rfc6455#page-61" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-61" id="page-61" href="#page-61" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -3514,8 +3514,8 @@ Table of Contents
    Extension Identifier
       The identifier of the extension, as will be used in the
       |Sec-WebSocket-Extensions| header field registered in
-      <a href="http://tools.ietf.org/html/rfc6455#section-11.3.2">Section 11.3.2</a> of this specification.  The value must conform to
-      the requirements for an extension-token as defined in <a href="http://tools.ietf.org/html/rfc6455#section-9.1">Section 9.1</a>
+      <a href="#section-11.3.2">Section 11.3.2</a> of this specification.  The value must conform to
+      the requirements for an extension-token as defined in <a href="#section-9.1">Section 9.1</a>
       of this specification.
 
    Extension Common Name
@@ -3549,7 +3549,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 61]</span>
-</pre><pre class="newpage"><a name="page-62" id="page-62" href="http://tools.ietf.org/html/rfc6455#page-62" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-62" id="page-62" href="#page-62" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -3557,9 +3557,9 @@ Table of Contents
 
    Subprotocol Identifier
       The identifier of the subprotocol, as will be used in the
-      |Sec-WebSocket-Protocol| header field registered in <a href="http://tools.ietf.org/html/rfc6455#section-11.3.4">Section 11.3.4</a>
+      |Sec-WebSocket-Protocol| header field registered in <a href="#section-11.3.4">Section 11.3.4</a>
       of this specification.  The value must conform to the requirements
-      given in item 10 of <a href="http://tools.ietf.org/html/rfc6455#section-4.1">Section 4.1</a> of this specification -- namely,
+      given in item 10 of <a href="#section-4.1">Section 4.1</a> of this specification -- namely,
       the value must be a token as defined by <a href="http://tools.ietf.org/html/rfc2616">RFC 2616</a> [<a href="http://tools.ietf.org/html/rfc2616" title="&quot;Hypertext Transfer Protocol -- HTTP/1.1&quot;">RFC2616</a>].
 
    Subprotocol Common Name
@@ -3583,7 +3583,7 @@ Table of Contents
 
    Version Number
       The version number to be used in the |Sec-WebSocket-Version| is
-      specified in <a href="http://tools.ietf.org/html/rfc6455#section-4.1">Section 4.1</a> of this specification.  The value must be
+      specified in <a href="#section-4.1">Section 4.1</a> of this specification.  The value must be
       a non-negative integer in the range between 0 and 255 (inclusive).
 
    Reference
@@ -3605,7 +3605,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 62]</span>
-</pre><pre class="newpage"><a name="page-63" id="page-63" href="http://tools.ietf.org/html/rfc6455#page-63" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-63" id="page-63" href="#page-63" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -3661,7 +3661,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 63]</span>
-</pre><pre class="newpage"><a name="page-64" id="page-64" href="http://tools.ietf.org/html/rfc6455#page-64" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-64" id="page-64" href="#page-64" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -3675,7 +3675,7 @@ Table of Contents
 
    Status Code
       The Status Code denotes a reason for a WebSocket connection
-      closure as per <a href="http://tools.ietf.org/html/rfc6455#section-7.4">Section 7.4</a> of this document.  The status code is
+      closure as per <a href="#section-7.4">Section 7.4</a> of this document.  The status code is
       an integer number between 1000 and 4999 (inclusive).
 
    Meaning
@@ -3717,7 +3717,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 64]</span>
-</pre><pre class="newpage"><a name="page-65" id="page-65" href="http://tools.ietf.org/html/rfc6455#page-65" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-65" id="page-65" href="#page-65" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -3763,7 +3763,7 @@ Table of Contents
 
    Opcode
       The opcode denotes the frame type of the WebSocket frame, as
-      defined in <a href="http://tools.ietf.org/html/rfc6455#section-5.2">Section 5.2</a>.  The opcode is an integer number between 0
+      defined in <a href="#section-5.2">Section 5.2</a>.  The opcode is an integer number between 0
       and 15, inclusive.
 
    Meaning
@@ -3773,7 +3773,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 65]</span>
-</pre><pre class="newpage"><a name="page-66" id="page-66" href="http://tools.ietf.org/html/rfc6455#page-66" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-66" id="page-66" href="#page-66" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -3805,7 +3805,7 @@ Table of Contents
    This specification creates a new IANA registry for WebSocket Framing
    Header Bits in accordance with the principles set out in <a href="http://tools.ietf.org/html/rfc5226">RFC 5226</a>
    [<a href="http://tools.ietf.org/html/rfc5226" title="&quot;Guidelines for Writing an IANA Considerations Section in RFCs&quot;">RFC5226</a>].  This registry controls assignment of the bits marked
-   RSV1, RSV2, and RSV3 in <a href="http://tools.ietf.org/html/rfc6455#section-5.2">Section 5.2</a>.
+   RSV1, RSV2, and RSV3 in <a href="#section-5.2">Section 5.2</a>.
 
    These bits are reserved for future versions or extensions of this
    specification.
@@ -3829,7 +3829,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 66]</span>
-</pre><pre class="newpage"><a name="page-67" id="page-67" href="http://tools.ietf.org/html/rfc6455#page-67" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-67" id="page-67" href="#page-67" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -3852,15 +3852,15 @@ Table of Contents
 
    If at any time the connection is to be closed, then the specification
    needs to use the _Close the WebSocket Connection_ algorithm
-   (<a href="http://tools.ietf.org/html/rfc6455#section-7.1.1">Section 7.1.1</a>).
+   (<a href="#section-7.1.1">Section 7.1.1</a>).
 
-   <a href="http://tools.ietf.org/html/rfc6455#section-7.1.4">Section 7.1.4</a> defines when _The WebSocket Connection is Closed_.
+   <a href="#section-7.1.4">Section 7.1.4</a> defines when _The WebSocket Connection is Closed_.
 
    While a connection is open, the specification will need to handle the
-   cases when _A WebSocket Message Has Been Received_ (<a href="http://tools.ietf.org/html/rfc6455#section-6.2">Section 6.2</a>).
+   cases when _A WebSocket Message Has Been Received_ (<a href="#section-6.2">Section 6.2</a>).
 
    To send some data /data/ to an open connection, the specification
-   needs to _Send a WebSocket Message_ (<a href="http://tools.ietf.org/html/rfc6455#section-6.1">Section 6.1</a>).
+   needs to _Send a WebSocket Message_ (<a href="#section-6.1">Section 6.1</a>).
 
 <span class="h2"><h2><a name="section-13">13</a>.  Acknowledgements</h2></span>
 
@@ -3885,7 +3885,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 67]</span>
-</pre><pre class="newpage"><a name="page-68" id="page-68" href="http://tools.ietf.org/html/rfc6455#page-68" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-68" id="page-68" href="#page-68" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -3941,7 +3941,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 68]</span>
-</pre><pre class="newpage"><a name="page-69" id="page-69" href="http://tools.ietf.org/html/rfc6455#page-69" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-69" id="page-69" href="#page-69" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -3997,7 +3997,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 69]</span>
-</pre><pre class="newpage"><a name="page-70" id="page-70" href="http://tools.ietf.org/html/rfc6455#page-70" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-70" id="page-70" href="#page-70" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
@@ -4053,7 +4053,7 @@ Table of Contents
 
 
 <span class="grey">Fette &amp; Melnikov             Standards Track                   [Page 70]</span>
-</pre><pre class="newpage"><a name="page-71" id="page-71" href="http://tools.ietf.org/html/rfc6455#page-71" class="invisible"> </a>
+</pre><pre class="newpage"><a name="page-71" id="page-71" href="#page-71" class="invisible"> </a>
 <span class="grey"><a href="http://tools.ietf.org/html/rfc6455">RFC 6455</a>                 The WebSocket Protocol            December 2011</span>
 
 
